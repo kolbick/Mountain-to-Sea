@@ -57,7 +57,26 @@
       line-height: 1.2;
     }
 
-    .brand span:first-child {
+    .brand-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-logo {
+      height: 40px;
+      width: auto;
+      border-radius: 0.6rem;
+      display: block;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .brand-text span:first-child {
       font-size: 0.8rem;
       opacity: 0.9;
     }
@@ -356,14 +375,95 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* Extra styling for photo + name story */
+
+    .profile-card {
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 0.85rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
+    .story-block {
+      margin-top: 1rem;
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.4rem 1.5rem 1.6rem;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      font-size: 0.96rem;
+    }
+
+    .story-block p {
+      margin-bottom: 0.7rem;
+    }
+
+    .story-highlight {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+      margin: 0.9rem 0;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .image-gallery {
+      margin-top: 1.6rem;
+    }
+
+    .image-gallery h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+      color: var(--primary-soft);
+    }
+
+    .image-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .image-row figure {
+      margin: 0;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      background: #dbe6f0;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    }
+
+    .image-row img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-row figcaption {
+      padding: 0.45rem 0.7rem 0.6rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.96);
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="nav-inner">
       <div class="brand">
-        <span>Abby Teed, LCSW</span>
-        <span>Mountain to Sea Therapy</span>
+        <div class="brand-inner">
+          <img src="Mountain%20to%20Sea.png" alt="Mountain to Sea Therapy logo" class="brand-logo">
+          <div class="brand-text">
+            <span>Abby Teed, LCSW</span>
+            <span>Mountain to Sea Therapy</span>
+          </div>
+        </div>
       </div>
       <nav>
         <a href="#about">About</a>
@@ -427,8 +527,10 @@
         <div>
           <p>
             Hi, I’m <strong>Abby Teed (she/her), LCSW</strong>, a clinical social worker offering online therapy
-            for clients across North Carolina. I’ve spent over a decade walking alongside children, teens,
-            and families through foster care, adoption, in-home services, and outpatient therapy. 
+            for clients across North Carolina. I’m originally from Minnesota and have lived in both the mountains
+            and the coast of North Carolina, which deeply shapes how I think about change, seasons, and healing.
+            I’ve spent over a decade walking alongside children, teens,
+            and families through foster care, adoption, in-home services, and outpatient therapy.
           </p>
           <p>
             My work centers on helping people who have lived through hard things—big and small—and who are ready
@@ -441,14 +543,59 @@
             at your own pace.
           </p>
         </div>
-        <div class="card">
+        <div class="card profile-card">
+          <img src="Abby.png" alt="Photo of Abby Teed, LCSW" class="profile-photo">
           <h3>Quick snapshot</h3>
           <ul>
-            <li>Licensed Clinical Social Worker (LCSW) in North Carolina </li>
-            <li>Master of Social Work, University of Oklahoma (2021) </li>
-            <li>10+ years supporting children & families, including foster care and adoption work </li>
-            <li>Online-only practice based in Shawboro & Moyock, NC </li>
+            <li>Licensed Clinical Social Worker (LCSW) in North Carolina</li>
+            <li>Originally from Minnesota; now rooted in coastal North Carolina</li>
+            <li>Master of Social Work, University of Oklahoma (2021)</li>
+            <li>10+ years supporting children & families, including foster care and adoption work</li>
+            <li>Online-only practice based in Shawboro & Moyock, NC</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="name-story">
+      <h2>Why “Mountain to Sea”?</h2>
+      <div class="story-block">
+        <p>
+          The name <strong>Mountain to Sea Therapy</strong> holds pieces of my own story as well as the kind of
+          work I do with clients. I grew up in Minnesota, surrounded by lakes and long winters, and later found
+          myself moving between the mountains of North Carolina and, eventually, the coast.
+        </p>
+        <p>
+          Those landscapes feel a lot like the inner worlds my clients describe. The mountains remind me of the slow,
+          steady work of healing—showing up, one step at a time, even when the path is steep and you can’t see
+          the view yet. The sea feels more like the nervous system: tides that rise and fall, sudden storms,
+          moments of calm, and waves that keep returning to the shoreline.
+        </p>
+        <p class="story-highlight">
+          Mountain to Sea is my shorthand for the whole range of being human—from the uphill climbs to the days
+          you’re just trying to stay afloat. All of it belongs, and none of it disqualifies you from care.
+        </p>
+        <p>
+          My hope is that this practice feels like both a trailhead and a shoreline: a place where you can pause,
+          get your bearings, and choose what comes next with support, instead of having to figure it all out alone.
+        </p>
+
+        <div class="image-gallery">
+          <h3>From ridgelines to tide lines</h3>
+          <div class="image-row">
+            <figure>
+              <img src="Mountain.jpeg" alt="Soft mountain ridges in North Carolina">
+              <figcaption>Mountains: the slow climbs and long views that come with steady work over time.</figcaption>
+            </figure>
+            <figure>
+              <img src="Mountain%20Beach.png" alt="Artwork of mountains meeting the beach">
+              <figcaption>Where the two meet: the in-between spaces where a lot of therapy happens.</figcaption>
+            </figure>
+            <figure>
+              <img src="Beach.jpeg" alt="Beach along the North Carolina coast at sunset">
+              <figcaption>Sea: shifting tides, changing seasons, and the possibility of starting again.</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -517,7 +664,7 @@
           <h3>Inclusive, affirming care</h3>
           <p>
             My practice is affirming for LGBTQ+ folks, diverse family structures, non-monogamous relationships,
-            and people navigating faith shifts and cultural questions. 
+            and people navigating faith shifts and cultural questions.
           </p>
           <p>
             Therapy is a shame-free zone. You don’t have to earn your way into being taken seriously here.
@@ -532,12 +679,12 @@
         <div>
           <p>
             I blend several trauma-informed approaches so we can work with both your mind and your body.
-            Sessions are relaxed, collaborative, and tailored to what you need that day rather than a rigid script. 
+            Sessions are relaxed, collaborative, and tailored to what you need that day rather than a rigid script.
           </p>
           <p>
             You might notice we check in with your body—your breath, your muscles, your posture—as much as
             your thoughts. We might use movement, tapping, or grounding exercises to help your nervous system
-            feel safer while we process hard things. 
+            feel safer while we process hard things.
           </p>
           <p>
             Some sessions are deep and emotional. Others are about problem-solving, parenting strategies,
@@ -573,7 +720,7 @@
             <li>MedCost</li>
           </ul>
           <p class="notice">
-            Coverage and copays vary by plan. We’ll confirm benefits before starting so there are no surprises. 
+            Coverage and copays vary by plan. We’ll confirm benefits before starting so there are no surprises.
           </p>
         </div>
 
@@ -584,7 +731,7 @@
             an income-based sliding scale.
           </p>
           <p class="notice">
-            We can talk through what’s sustainable for you during the consultation call. 
+            We can talk through what’s sustainable for you during the consultation call.
           </p>
         </div>
 
@@ -592,8 +739,8 @@
           <h3>Logistics</h3>
           <ul>
             <li>Online-only sessions for residents of North Carolina</li>
-            <li>Children 5+, teens, adults, couples, and families </li>
-            <li>Payment options include major credit cards and HSA/FSA cards </li>
+            <li>Children 5+, teens, adults, couples, and families</li>
+            <li>Payment options include major credit cards and HSA/FSA cards</li>
           </ul>
         </div>
       </div>
