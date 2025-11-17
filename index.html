@@ -1,391 +1,262 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Mountains to Sea Therapy | Abby Teed, LCSW</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Mountains to Sea Therapy offers online counseling for children, teens, adults, and families across North Carolina. Trauma-informed care with EMDR, somatic therapy, and parts work." />
+  <script>
+    // ---------- Simple local "scheduler" demo logic ----------
+    // NOTE: This blocks slots only per browser using localStorage.
+    // Real multi-user scheduling would need a backend + database.
 
-  <!-- app icons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180.png">
+    const SCHEDULE_TIMES = [
+      "9:00 AM",
+      "10:30 AM",
+      "1:00 PM",
+      "3:00 PM"
+    ];
 
-  <!-- iOS PWA support -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Mountains to Sea">
+    const STORAGE_KEY = "mts_booked_slots_v1";
+    let lastEventDetails = null; // for ICS download
 
-  <style>
-    :root {
-      --bg: #f5f7fa;
-      --primary: #173b4f;
-      --primary-soft: #2a607a;
-      --accent: #f4b41a;
-      --text: #222;
-      --muted: #555;
-      --card: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #102333, #173b4f 45%, #2a607a 80%, #8ecae6);
-      color: #fff;
-      padding: 0.85rem 1.5rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav-inner {
-      max-width: 1040px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .brand {
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .brand span:first-child {
-      font-size: 0.8rem;
-      opacity: 0.9;
-    }
-
-    nav a {
-      color: #e6f3ff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      margin-left: 1rem;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .hero {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 3.25rem 1.5rem 3rem;
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 2.25rem;
-      align-items: center;
-    }
-
-    @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding-top: 2.5rem;
+    function loadBookedSlots() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
       }
     }
 
-    .hero-title {
-      font-size: 2.3rem;
-      margin-bottom: 0.6rem;
-      color: var(--primary);
+    function saveBookedSlots(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        // ignore
+      }
     }
 
-    .hero-kicker {
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      color: var(--primary-soft);
-      margin-bottom: 0.5rem;
+    function renderSlots() {
+      const dateInput = document.getElementById("schedule-date");
+      const slotList = document.getElementById("slot-list");
+      const status = document.getElementById("schedule-status");
+      const dateVal = dateInput.value;
+
+      slotList.innerHTML = "";
+      status.textContent = "";
+
+      if (!dateVal) {
+        const msg = document.createElement("p");
+        msg.className = "schedule-note";
+        msg.textContent = "Pick a date to see what times are available.";
+        slotList.appendChild(msg);
+        return;
+      }
+
+      const booked = loadBookedSlots();
+
+      SCHEDULE_TIMES.forEach((time) => {
+        const key = dateVal + "|" + time;
+        const btn = document.createElement("button");
+        btn.textContent = time;
+        btn.className = "slot-btn";
+
+        if (booked[key]) {
+          btn.classList.add("booked");
+          btn.disabled = true;
+          btn.title = "Requested from this device";
+        } else {
+          btn.addEventListener("click", () => handleSlotClick(dateVal, time));
+        }
+
+        slotList.appendChild(btn);
+      });
     }
 
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 1.4rem;
+    function parseTimeToHoursMinutes(timeStr) {
+      // expects formats like "9:00 AM", "10:30 PM"
+      const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+      if (!match) return { hours: 9, minutes: 0 }; // fallback
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const period = match[3].toUpperCase();
+      if (period === "PM" && hours < 12) hours += 12;
+      if (period === "AM" && hours === 12) hours = 0;
+      return { hours, minutes };
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
+    function formatDateToIcs(dt) {
+      const pad = (n) => String(n).padStart(2, "0");
+      return (
+        dt.getUTCFullYear().toString() +
+        pad(dt.getUTCMonth() + 1) +
+        pad(dt.getUTCDate()) +
+        "T" +
+        pad(dt.getUTCHours()) +
+        pad(dt.getUTCMinutes()) +
+        pad(dt.getUTCSeconds()) +
+        "Z"
+      );
     }
 
-    .btn-primary,
-    .btn-ghost {
-      padding: 0.7rem 1.3rem;
-      border-radius: 999px;
-      border: 2px solid transparent;
-      font-size: 0.95rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
+    function handleSlotClick(dateVal, timeVal) {
+      const name = document.getElementById("schedule-name").value.trim();
+      const email = document.getElementById("schedule-email").value.trim();
+      const notes = document.getElementById("schedule-notes").value.trim();
+      const status = document.getElementById("schedule-status");
+      const honeypot = document.getElementById("schedule-extra").value.trim();
+
+      // basic spam/bot check: if honeypot filled, bail silently
+      if (honeypot) {
+        status.textContent = "Something went wrong. Please try again.";
+        return;
+      }
+
+      if (!name || !email) {
+        status.textContent = "Please enter your name and email before choosing a time.";
+        return;
+      }
+
+      if (!dateVal) {
+        status.textContent = "Please select a date before choosing a time.";
+        return;
+      }
+
+      const humanDate = new Date(dateVal + "T12:00:00").toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      });
+
+      const subject = encodeURIComponent(`Session request: ${humanDate} at ${timeVal}`);
+      const bodyLines = [
+        "A new session time has been requested from the Mountains to Sea Therapy website.",
+        "",
+        `Client name: ${name}`,
+        `Client email: ${email}`,
+        "",
+        `Preferred date: ${humanDate}`,
+        `Preferred time: ${timeVal}`,
+        "",
+        "Additional notes from client:",
+        notes || "(none provided)",
+        "",
+        "You can reply directly to this email to confirm or offer an alternative time.",
+        "",
+        "Sent from the Mountains to Sea Therapy website."
+      ];
+      const body = encodeURIComponent(bodyLines.join("\n"));
+
+      // Open email client for Abby
+      const mailto = `mailto:abby@mountainstoseatherapy.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+
+      // Mark this slot as "booked" in this browser
+      const booked = loadBookedSlots();
+      const key = dateVal + "|" + timeVal;
+      booked[key] = true;
+      saveBookedSlots(booked);
+      renderSlots();
+
+      status.textContent = `Requested ${humanDate} at ${timeVal}. Abby will follow up by email.`;
+
+      // Store details for ICS generation
+      lastEventDetails = {
+        name,
+        email,
+        dateVal,
+        timeVal,
+        notes
+      };
+
+      const icsWrapper = document.getElementById("schedule-ics-wrapper");
+      if (icsWrapper) {
+        icsWrapper.style.display = "block";
+      }
     }
 
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #1a1a1a;
-      font-weight: 600;
+    function downloadIcsForLastRequest() {
+      if (!lastEventDetails) {
+        alert("Please request a session time first.");
+        return;
+      }
+
+      const { name, email, dateVal, timeVal, notes } = lastEventDetails;
+      const { hours, minutes } = parseTimeToHoursMinutes(timeVal);
+
+      // Build local Date objects for start and end (1 hour)
+      const start = new Date(dateVal + "T00:00:00");
+      start.setHours(hours, minutes, 0, 0);
+      const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+      const dtStamp = new Date();
+      const dtStartStr = formatDateToIcs(start);
+      const dtEndStr = formatDateToIcs(end);
+      const dtStampStr = formatDateToIcs(dtStamp);
+
+      const descriptionLines = [
+        `Client: ${name}`,
+        `Client email: ${email}`,
+        "",
+        "Additional notes:",
+        notes || "(none provided)",
+        "",
+        "Requested via the Mountains to Sea Therapy website."
+      ];
+
+      const icsContent = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Mountains to Sea Therapy//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "BEGIN:VEVENT",
+        `UID:${Date.now()}@mountainstoseatherapy.com`,
+        `DTSTAMP:${dtStampStr}`,
+        `DTSTART:${dtStartStr}`,
+        `DTEND:${dtEndStr}`,
+        `SUMMARY:Therapy session request with ${name}`,
+        "DESCRIPTION:" + descriptionLines.join("\\n").replace(/\n/g, "\\n"),
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "session-request.ics";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
-    .btn-primary:hover {
-      filter: brightness(0.95);
+    function sendContactEmail() {
+      const name = document.getElementById("contact-name").value.trim();
+      const email = document.getElementById("contact-email").value.trim();
+      const message = document.getElementById("contact-message").value.trim();
+
+      const subject = encodeURIComponent("New contact from Mountains to Sea Therapy website");
+
+      const bodyLines = [
+        "You have a new contact message from the Mountains to Sea Therapy website.",
+        "",
+        `Name: ${name || "(not provided)"}`,
+        `Email: ${email || "(not provided)"}`,
+        "",
+        "Message:",
+        message || "(no message provided)",
+        "",
+        "You can reply directly to this email to respond to the client."
+      ];
+      const body = encodeURIComponent(bodyLines.join("\n"));
+
+      const mailto = `mailto:abby@mountainstoseatherapy.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
     }
 
-    .btn-ghost {
-      background: transparent;
-      border-color: rgba(23, 59, 79, 0.15);
-      color: var(--primary-soft);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(23, 59, 79, 0.04);
-    }
-
-    .hero-note {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .hero-note strong {
-      font-weight: 600;
-      color: var(--primary-soft);
-    }
-
-    .hero-art {
-      background: radial-gradient(circle at top, #8ecae6 0%, #2a607a 35%, #173b4f 75%, #102333 100%);
-      border-radius: 1.6rem;
-      padding: 1.4rem;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 36px rgba(0, 0, 0, 0.22);
-    }
-
-    .hero-art-inner {
-      border-radius: 1.2rem;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 1.2rem 1.3rem 1.3rem;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(135deg, rgba(10, 21, 35, 0.35), rgba(255, 255, 255, 0.08));
-    }
-
-    .hero-art-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 0.6rem;
-      opacity: 0.9;
-    }
-
-    .hero-art-main {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      opacity: 0.98;
-    }
-
-    .hero-art-tagline {
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-      opacity: 0.85;
-    }
-
-    .hero-art-badge {
-      position: absolute;
-      bottom: 1rem;
-      right: 1.4rem;
-      font-size: 0.7rem;
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(16, 35, 51, 0.9);
-      border: 1px solid rgba(244, 180, 26, 0.9);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      white-space: nowrap;
-    }
-
-    .hero-waves {
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 70px;
-      background: linear-gradient(to top, rgba(250, 250, 250, 0.28), transparent 65%);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    main {
-      max-width: 1040px;
-      margin: 0 auto 3.5rem;
-      padding: 0 1.5rem 3rem;
-    }
-
-    section {
-      margin-top: 2.6rem;
-    }
-
-    h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.75rem;
-      color: var(--primary);
-    }
-
-    h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-      color: var(--primary-soft);
-    }
-
-    p {
-      margin-bottom: 0.65rem;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="nav-inner">
-      <div class="brand">
-        <span>Abby Teed, LCSW</span>
-        <span>Mountains to Sea Therapy</span>
-      </div>
-
-      <nav>
-        <a href="#about">About</a>
-        <a href="#who-i-help">Who I Help</a>
-        <a href="#approach">How I Work</a>
-        <a href="#fees">Insurance & Fees</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div>
-      <div class="hero-kicker">Online therapy for North Carolina residents</div>
-
-      <h1 class="hero-title">From the mountains to the sea, your story belongs here.</h1>
-
-      <p class="hero-subtitle">
-        I support children, teens, adults, and families who are carrying the weight of trauma, anxiety,
-        and big life changes. Together, we slow down, listen to your body and your story, and move
-        toward the version of you that feels most like home.
-      </p>
-
-      <div class="hero-buttons">
-        <a class="btn-primary" href="#contact">Schedule a free 15-minute consult</a>
-
-        <a class="btn-ghost"
-          href="https://www.psychologytoday.com/us/therapists/abby-teed-shawboro-nc/1322715"
-          target="_blank"
-          rel="noreferrer">
-          View Psychology Today profile
-        </a>
-      </div>
-
-      <p class="hero-note">
-        Serving clients <strong>online only</strong> across North Carolina • Ages 5+ • Individuals, couples, and families
-      </p>
-    </div>
-
-    <div class="hero-art" aria-hidden="true">
-      <div class="hero-art-inner">
-        <div class="hero-art-title">Mountains &rarr; Sea</div>
-        <p class="hero-art-main">
-          Some days feel like climbing a steep trail. Others feel like trying to stand still in shifting waves.
-          Therapy can be a steady place to pause, feel, and choose your next step.
-        </p>
-        <p class="hero-art-tagline">
-          We won't erase your past, but we can help you learn from it and carry it differently.
-        </p>
-      </div>
-      <div class="hero-waves"></div>
-      <div class="hero-art-badge">
-        Trauma-informed • EMDR • Somatic
-      </div>
-    </div>
-  </section>
-
-  <main>
-    <section id="about">
-      <h2>About Mountains to Sea Therapy</h2>
-      <div class="two-column">
-        <div>
-          <p>
-            Hi, I’m <strong>Abby Teed (she/her), LCSW</strong>, a clinical social worker offering online therapy
-            for clients across North Carolina. I’ve spent over a decade walking alongside children, teens,
-            and families through foster care, adoption, in-home services, and outpatient therapy.
-          </p>
-
-          <p>
-            My work centers on helping people who have lived through hard things—big and small—and who are ready
-            to stop pretending everything is fine. Together we make room for the messy, human parts of your story
-            with warmth, humor, and compassion.
-          </p>
-
-          <p>
-            Whether you’re a kid feeling misunderstood, a parent feeling stuck, or an adult trying to untangle old
-            patterns, our time is a space where you don’t have to perform. You get to be real, in your own way,
-            at your own pace.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Quick snapshot</h3>
-          <ul>
-            <li>Licensed Clinical Social Worker (LCSW) in North Carolina</li>
-            <li>Master of Social Work, University of Oklahoma (2021)</li>
-            <li>10+ years supporting children & families, including foster care and adoption work</li>
-            <li>Online-only practice based in Shawboro & Moyock, NC</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="who-i-help">
-      <h2>Who I Help</h2>
-
-      <!-- cards continue unchanged -->
-    </section>
-
-    <section id="approach">
-      <h2>How I Work</h2>
-      <!-- content unchanged -->
-    </section>
-
-    <section id="fees">
-      <h2>Insurance & Fees</h2>
-      <!-- content unchanged -->
-    </section>
-
-    <section id="contact">
-      <h2>Contact & Scheduling</h2>
-      <!-- content unchanged -->
-    </section>
-  </main>
-
-  <footer>
-    Mountains to Sea Therapy &middot; Abby Teed, LCSW &middot; Online therapy across North Carolina
-  </footer>
-</body>
-</html>
+    // Wire up date change → render slots
+    document.addEventListener("DOMContentLoaded", () => {
+      const dateInput = document.getElementById("schedule-date");
+      if (dateInput) {
+        dateInput.addEventListener("change", renderSlots);
+      }
+      // Initial render (no date yet)
+      renderSlots();
+    });
+  </script>
