@@ -1006,267 +1006,271 @@
     Mountains to Sea Therapy &middot; Abby Teed, LCSW &middot; Online therapy across North Carolina
   </footer>
 
-  <script>
-    // ---------- Simple local "scheduler" demo logic ----------
-    // NOTE: This blocks slots only per browser using localStorage.
-    // Real multi-user scheduling would need a backend + database.
+ <script>
+  // ---------- Simple local "scheduler" demo logic ----------
+  // NOTE: This blocks slots only per browser using localStorage.
+  // Real multi-user scheduling would need a backend + database.
 
-    const SCHEDULE_TIMES = [
-      "9:00 AM",
-      "10:30 AM",
-      "1:00 PM",
-      "3:00 PM"
+  const EMAILJS_SERVICE_ID = "service_erdtssf";
+  const EMAILJS_TEMPLATE_ID = "template_aub1o6a";
+
+  const SCHEDULE_TIMES = [
+    "9:00 AM",
+    "10:30 AM",
+    "1:00 PM",
+    "3:00 PM"
+  ];
+
+  const STORAGE_KEY = "mts_booked_slots_v1";
+  let lastEventDetails = null; // for ICS download
+
+  function loadBookedSlots() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveBookedSlots(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function renderSlots() {
+    const dateInput = document.getElementById("schedule-date");
+    const slotList = document.getElementById("slot-list");
+    const status = document.getElementById("schedule-status");
+    const dateVal = dateInput.value;
+
+    slotList.innerHTML = "";
+    status.textContent = "";
+
+    if (!dateVal) {
+      const msg = document.createElement("p");
+      msg.className = "schedule-note";
+      msg.textContent = "Pick a date to see what times are available.";
+      slotList.appendChild(msg);
+      return;
+    }
+
+    const booked = loadBookedSlots();
+
+    SCHEDULE_TIMES.forEach((time) => {
+      const key = dateVal + "|" + time;
+      const btn = document.createElement("button");
+      btn.textContent = time;
+      btn.className = "slot-btn";
+
+      if (booked[key]) {
+        btn.classList.add("booked");
+        btn.disabled = true;
+        btn.title = "Requested from this device";
+      } else {
+        btn.addEventListener("click", () => handleSlotClick(dateVal, time));
+      }
+
+      slotList.appendChild(btn);
+    });
+  }
+
+  function parseTimeToHoursMinutes(timeStr) {
+    const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (!match) return { hours: 9, minutes: 0 };
+    let hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const period = match[3].toUpperCase();
+    if (period === "PM" && hours < 12) hours += 12;
+    if (period === "AM" && hours === 12) hours = 0;
+    return { hours, minutes };
+  }
+
+  function formatDateToIcs(dt) {
+    const pad = (n) => String(n).padStart(2, "0");
+    return (
+      dt.getUTCFullYear().toString() +
+      pad(dt.getUTCMonth() + 1) +
+      pad(dt.getUTCDate()) +
+      "T" +
+      pad(dt.getUTCHours()) +
+      pad(dt.getUTCMinutes()) +
+      pad(dt.getUTCSeconds()) +
+      "Z"
+    );
+  }
+
+  function handleSlotClick(dateVal, timeVal) {
+    const name = document.getElementById("schedule-name").value.trim();
+    const email = document.getElementById("schedule-email").value.trim();
+    const notes = document.getElementById("schedule-notes").value.trim();
+    const status = document.getElementById("schedule-status");
+    const honeypot = document.getElementById("schedule-extra").value.trim();
+
+    if (honeypot) {
+      status.textContent = "Something went wrong. Please try again.";
+      return;
+    }
+
+    if (!name || !email) {
+      status.textContent = "Please enter your name and email before choosing a time.";
+      return;
+    }
+
+    if (!dateVal) {
+      status.textContent = "Please select a date before choosing a time.";
+      return;
+    }
+
+    const humanDate = new Date(dateVal + "T12:00:00").toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      message: "Session request from the Mountains to Sea Therapy website.",
+      kind: "schedule request",
+      preferred_date: humanDate,
+      preferred_time: timeVal,
+      extra_notes: notes || "(none provided)"
+    };
+
+    status.textContent = "Sending your request...";
+
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        status.textContent = `Requested ${humanDate} at ${timeVal}. Abby will follow up by email.`;
+
+        const booked = loadBookedSlots();
+        const key = dateVal + "|" + timeVal;
+        booked[key] = true;
+        saveBookedSlots(booked);
+        renderSlots();
+
+        lastEventDetails = {
+          name,
+          email,
+          dateVal,
+          timeVal,
+          notes
+        };
+
+        const icsWrapper = document.getElementById("schedule-ics-wrapper");
+        if (icsWrapper) {
+          icsWrapper.style.display = "block";
+        }
+      })
+      .catch((error) => {
+        console.error("EmailJS error (schedule):", error);
+        status.textContent =
+          "There was a problem sending your request. You can also email Abby at abby@mountainstoseatherapy.com.";
+      });
+  }
+
+  function downloadIcsForLastRequest() {
+    if (!lastEventDetails) {
+      alert("Please request a session time first.");
+      return;
+    }
+
+    const { name, email, dateVal, timeVal, notes } = lastEventDetails;
+    const { hours, minutes } = parseTimeToHoursMinutes(timeVal);
+
+    const start = new Date(dateVal + "T00:00:00");
+    start.setHours(hours, minutes, 0, 0);
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+    const dtStamp = new Date();
+    const dtStartStr = formatDateToIcs(start);
+    const dtEndStr = formatDateToIcs(end);
+    const dtStampStr = formatDateToIcs(dtStamp);
+
+    const descriptionLines = [
+      `Client: ${name}`,
+      `Client email: ${email}`,
+      "",
+      "Additional notes:",
+      notes || "(none provided)",
+      "",
+      "Requested via the Mountains to Sea Therapy website."
     ];
 
-    const STORAGE_KEY = "mts_booked_slots_v1";
-    let lastEventDetails = null; // for ICS download
+    const icsContent = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Mountains to Sea Therapy//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      `UID:${Date.now()}@mountainstoseatherapy.com`,
+      `DTSTAMP:${dtStampStr}`,
+      `DTSTART:${dtStartStr}`,
+      `DTEND:${dtEndStr}`,
+      `SUMMARY:Therapy session request with ${name}`,
+      "DESCRIPTION:" + descriptionLines.join("\\n").replace(/\n/g, "\\n"),
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
 
-    function loadBookedSlots() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : {};
-      } catch (e) {
-        return {};
-      }
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "session-request.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function sendContactEmail() {
+    const name = document.getElementById("contact-name").value.trim();
+    const email = document.getElementById("contact-email").value.trim();
+    const message = document.getElementById("contact-message").value.trim();
+
+    if (!email && !message) {
+      alert("Please include at least an email and a short message.");
+      return;
     }
 
-    function saveBookedSlots(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        // ignore
-      }
-    }
+    const templateParams = {
+      from_name: name || "(not provided)",
+      from_email: email || "(not provided)",
+      message: message || "(no message provided)",
+      kind: "contact form",
+      preferred_date: "(not provided)",
+      preferred_time: "(not provided)",
+      extra_notes: ""
+    };
 
-    function renderSlots() {
-      const dateInput = document.getElementById("schedule-date");
-      const slotList = document.getElementById("slot-list");
-      const status = document.getElementById("schedule-status");
-      const dateVal = dateInput.value;
-
-      slotList.innerHTML = "";
-      status.textContent = "";
-
-      if (!dateVal) {
-        const msg = document.createElement("p");
-        msg.className = "schedule-note";
-        msg.textContent = "Pick a date to see what times are available.";
-        slotList.appendChild(msg);
-        return;
-      }
-
-      const booked = loadBookedSlots();
-
-      SCHEDULE_TIMES.forEach((time) => {
-        const key = dateVal + "|" + time;
-        const btn = document.createElement("button");
-        btn.textContent = time;
-        btn.className = "slot-btn";
-
-        if (booked[key]) {
-          btn.classList.add("booked");
-          btn.disabled = true;
-          btn.title = "Requested from this device";
-        } else {
-          btn.addEventListener("click", () => handleSlotClick(dateVal, time));
-        }
-
-        slotList.appendChild(btn);
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        alert("Your message has been sent to Abby.");
+        document.getElementById("contact-name").value = "";
+        document.getElementById("contact-email").value = "";
+        document.getElementById("contact-message").value = "";
+      })
+      .catch((error) => {
+        console.error("EmailJS error (contact):", error);
+        alert(
+          "Something went wrong sending your message. You can also email Abby at abby@mountainstoseatherapy.com."
+        );
       });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const dateInput = document.getElementById("schedule-date");
+    if (dateInput) {
+      dateInput.addEventListener("change", renderSlots);
     }
-
-    function parseTimeToHoursMinutes(timeStr) {
-      // expects formats like "9:00 AM", "10:30 PM"
-      const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-      if (!match) return { hours: 9, minutes: 0 }; // fallback
-      let hours = parseInt(match[1], 10);
-      const minutes = parseInt(match[2], 10);
-      const period = match[3].toUpperCase();
-      if (period === "PM" && hours < 12) hours += 12;
-      if (period === "AM" && hours === 12) hours = 0;
-      return { hours, minutes };
-    }
-
-    function formatDateToIcs(dt) {
-      const pad = (n) => String(n).padStart(2, "0");
-      return (
-        dt.getUTCFullYear().toString() +
-        pad(dt.getUTCMonth() + 1) +
-        pad(dt.getUTCDate()) +
-        "T" +
-        pad(dt.getUTCHours()) +
-        pad(dt.getUTCMinutes()) +
-        pad(dt.getUTCSeconds()) +
-        "Z"
-      );
-    }
-
-    function handleSlotClick(dateVal, timeVal) {
-      const name = document.getElementById("schedule-name").value.trim();
-      const email = document.getElementById("schedule-email").value.trim();
-      const notes = document.getElementById("schedule-notes").value.trim();
-      const status = document.getElementById("schedule-status");
-      const honeypot = document.getElementById("schedule-extra").value.trim();
-
-      // basic spam/bot check: if honeypot filled, bail silently
-      if (honeypot) {
-        status.textContent = "Something went wrong. Please try again.";
-        return;
-      }
-
-      if (!name || !email) {
-        status.textContent = "Please enter your name and email before choosing a time.";
-        return;
-      }
-
-      if (!dateVal) {
-        status.textContent = "Please select a date before choosing a time.";
-        return;
-      }
-
-      const humanDate = new Date(dateVal + "T12:00:00").toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-
-      const subject = encodeURIComponent(`Session request: ${humanDate} at ${timeVal}`);
-      const bodyLines = [
-        "A new session time has been requested from the Mountains to Sea Therapy website.",
-        "",
-        `Client name: ${name}`,
-        `Client email: ${email}`,
-        "",
-        `Preferred date: ${humanDate}`,
-        `Preferred time: ${timeVal}`,
-        "",
-        "Additional notes from client:",
-        notes || "(none provided)",
-        "",
-        "You can reply directly to this email to confirm or offer an alternative time.",
-        "",
-        "Sent from the Mountains to Sea Therapy website."
-      ];
-      const body = encodeURIComponent(bodyLines.join("\n"));
-
-      // Open email client to send to Abby
-      const mailto = `mailto:abby@mountainstoseatherapy.com?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
-
-      // Mark this slot as "booked" in this browser
-      const booked = loadBookedSlots();
-      const key = dateVal + "|" + timeVal;
-      booked[key] = true;
-      saveBookedSlots(booked);
-      renderSlots();
-
-      status.textContent = `Requested ${humanDate} at ${timeVal}. Abby will follow up by email.`;
-
-      // Store details for ICS generation
-      lastEventDetails = {
-        name,
-        email,
-        dateVal,
-        timeVal,
-        notes
-      };
-
-      const icsWrapper = document.getElementById("schedule-ics-wrapper");
-      if (icsWrapper) {
-        icsWrapper.style.display = "block";
-      }
-    }
-
-    function downloadIcsForLastRequest() {
-      if (!lastEventDetails) {
-        alert("Please request a session time first.");
-        return;
-      }
-
-      const { name, email, dateVal, timeVal, notes } = lastEventDetails;
-      const { hours, minutes } = parseTimeToHoursMinutes(timeVal);
-
-      // Build local Date objects for start and end (1 hour)
-      const start = new Date(dateVal + "T00:00:00");
-      start.setHours(hours, minutes, 0, 0);
-      const end = new Date(start.getTime() + 60 * 60 * 1000);
-
-      const dtStamp = new Date();
-      const dtStartStr = formatDateToIcs(start);
-      const dtEndStr = formatDateToIcs(end);
-      const dtStampStr = formatDateToIcs(dtStamp);
-
-      const descriptionLines = [
-        `Client: ${name}`,
-        `Client email: ${email}`,
-        "",
-        "Additional notes:",
-        notes || "(none provided)",
-        "",
-        "Requested via the Mountains to Sea Therapy website."
-      ];
-
-      const icsContent = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Mountains to Sea Therapy//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        `UID:${Date.now()}@mountainstoseatherapy.com`,
-        `DTSTAMP:${dtStampStr}`,
-        `DTSTART:${dtStartStr}`,
-        `DTEND:${dtEndStr}`,
-        `SUMMARY:Therapy session request with ${name}`,
-        "DESCRIPTION:" + descriptionLines.join("\\n").replace(/\n/g, "\\n"),
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\r\n");
-
-      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "session-request.ics";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function sendContactEmail() {
-      const name = document.getElementById("contact-name").value.trim();
-      const email = document.getElementById("contact-email").value.trim();
-      const message = document.getElementById("contact-message").value.trim();
-
-      const subject = encodeURIComponent("New contact from Mountains to Sea Therapy website");
-
-      const bodyLines = [
-        "You have a new contact message from the Mountains to Sea Therapy website.",
-        "",
-        `Name: ${name || "(not provided)"}`,
-        `Email: ${email || "(not provided)"}`,
-        "",
-        "Message:",
-        message || "(no message provided)",
-        "",
-        "You can reply directly to this email to respond to the client."
-      ];
-      const body = encodeURIComponent(bodyLines.join("\n"));
-
-      const mailto = `mailto:abby@mountainstoseatherapy.com?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
-    }
-
-    // Wire up date change → render slots
-    document.addEventListener("DOMContentLoaded", () => {
-      const dateInput = document.getElementById("schedule-date");
-      if (dateInput) {
-        dateInput.addEventListener("change", renderSlots);
-      }
-      // Initial render (no date yet)
-      renderSlots();
-    });
-  </script>
-</body>
-</html>
+    renderSlots();
+  });
+</script>
