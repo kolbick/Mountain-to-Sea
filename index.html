@@ -13,23 +13,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180.png" />
-
-  <!-- web app (PWA) manifest -->
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#173b4f" />
-
-  <!-- iOS PWA support -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Mountains to Sea" />
-
-  <!-- EmailJS -->
-  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
-  <script>
-    (function () {
-      emailjs.init("ubehaCaFQQVPBchL4");  // PUBLIC KEY
-    })();
-  </script>
 
   <style>
     :root {
@@ -46,7 +32,8 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
     }
 
     body {
@@ -56,7 +43,13 @@
     }
 
     header {
-      background: linear-gradient(135deg, #102333, #173b4f 45%, #2a607a 80%, #8ecae6);
+      background: linear-gradient(
+        135deg,
+        #102333,
+        #173b4f 45%,
+        #2a607a 80%,
+        #8ecae6
+      );
       color: #fff;
       padding: 0.85rem 1.5rem;
       position: sticky;
@@ -73,31 +66,39 @@
       gap: 1rem;
     }
 
-    .brand-inner {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.75rem;
     }
 
     .brand-logo {
+      width: 40px;
       height: 40px;
-      width: auto;
-      border-radius: 0.6rem;
-      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .brand-text {
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
+      font-size: 0.8rem;
       line-height: 1.2;
     }
 
     .brand-text span:first-child {
-      font-size: 0.8rem;
       opacity: 0.9;
     }
 
@@ -129,18 +130,18 @@
       }
     }
 
-    .hero-title {
-      font-size: 2.3rem;
-      margin-bottom: 0.6rem;
-      color: var(--primary);
-    }
-
     .hero-kicker {
       text-transform: uppercase;
       font-size: 0.75rem;
       letter-spacing: 0.18em;
       color: var(--primary-soft);
       margin-bottom: 0.5rem;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      margin-bottom: 0.6rem;
+      color: var(--primary);
     }
 
     .hero-subtitle {
@@ -184,16 +185,11 @@
     .btn-ghost {
       background: transparent;
       border-color: rgba(23, 59, 79, 0.15);
-      color: var(--primary-soft);
+      color: #fff;
     }
 
     .btn-ghost:hover {
-      background: rgba(23, 59, 79, 0.04);
-    }
-
-    .btn-small {
-      font-size: 0.85rem;
-      padding: 0.5rem 1.1rem;
+      background: rgba(23, 59, 79, 0.08);
     }
 
     .hero-note {
@@ -207,7 +203,13 @@
     }
 
     .hero-art {
-      background: radial-gradient(circle at top, #8ecae6 0%, #2a607a 35%, #173b4f 75%, #102333 100%);
+      background: radial-gradient(
+        circle at top,
+        #8ecae6 0%,
+        #2a607a 35%,
+        #173b4f 75%,
+        #102333 100%
+      );
       border-radius: 1.6rem;
       padding: 1.4rem;
       color: #fff;
@@ -221,7 +223,11 @@
       border: 1px solid rgba(255, 255, 255, 0.35);
       padding: 1.2rem 1.3rem 1.3rem;
       backdrop-filter: blur(10px);
-      background: linear-gradient(135deg, rgba(10, 21, 35, 0.35), rgba(255, 255, 255, 0.08));
+      background: linear-gradient(
+        135deg,
+        rgba(10, 21, 35, 0.35),
+        rgba(255, 255, 255, 0.08)
+      );
     }
 
     .hero-art-title {
@@ -262,7 +268,11 @@
       position: absolute;
       inset: auto 0 0 0;
       height: 70px;
-      background: linear-gradient(to top, rgba(250, 250, 250, 0.28), transparent 65%);
+      background: linear-gradient(
+        to top,
+        rgba(250, 250, 250, 0.28),
+        transparent 65%
+      );
       opacity: 0.35;
       pointer-events: none;
     }
@@ -291,6 +301,19 @@
 
     p {
       margin-bottom: 0.65rem;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.7rem;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 800px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
     }
 
     .cards {
@@ -333,19 +356,6 @@
       color: var(--muted);
     }
 
-    .two-column {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 1.7rem;
-      margin-top: 0.8rem;
-    }
-
-    @media (max-width: 800px) {
-      .two-column {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .contact-box {
       background: var(--card);
       border-radius: 1rem;
@@ -356,12 +366,12 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
       gap: 1.4rem;
       margin-top: 1rem;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -400,206 +410,147 @@
       text-decoration: underline;
     }
 
-    /* Extra styling for photo + name story */
-
-    .profile-card {
-      text-align: center;
-    }
-
-    .profile-photo {
-      width: 150px;
-      height: 150px;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto 0.85rem;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
-    }
-
-    .story-block {
-      margin-top: 1rem;
-      background: #ffffff;
-      border-radius: 1rem;
-      padding: 1.4rem 1.5rem 1.6rem;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
-      border: 1px solid rgba(15, 23, 42, 0.05);
-      font-size: 0.96rem;
-    }
-
-    .story-block p {
-      margin-bottom: 0.7rem;
-    }
-
-    .story-highlight {
-      border-left: 3px solid var(--accent);
-      padding-left: 0.75rem;
-      margin: 0.9rem 0;
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .image-gallery {
-      margin-top: 1.6rem;
-    }
-
-    .image-gallery h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.6rem;
-      color: var(--primary-soft);
-    }
-
-    .image-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.9rem;
-    }
-
-    .image-row figure {
-      margin: 0;
-      border-radius: 0.9rem;
-      overflow: hidden;
-      background: #dbe6f0;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
-    }
-
-    .image-row img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .image-row figcaption {
-      padding: 0.45rem 0.7rem 0.6rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.96);
-    }
-
-    /* Forms & scheduler */
+    /* ---- Forms & scheduler ---- */
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 0.75rem;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-top: 0.4rem;
     }
 
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      font-size: 0.9rem;
+    .form-row-double {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
     }
 
-    .form-field label {
-      font-weight: 600;
+    @media (max-width: 600px) {
+      .form-row-double {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
       color: var(--primary-soft);
     }
 
-    .form-field input,
-    .form-field textarea,
-    .form-field select {
-      padding: 0.45rem 0.55rem;
+    .text-input,
+    .textarea,
+    .date-input {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
       border-radius: 0.5rem;
-      border: 1px solid rgba(15, 23, 42, 0.18);
+      border: 1px solid rgba(15, 23, 42, 0.16);
       font-size: 0.9rem;
-      font-family: inherit;
+      outline: none;
+      background: #fdfdfd;
+    }
+
+    .text-input:focus,
+    .textarea:focus,
+    .date-input:focus {
+      border-color: var(--primary-soft);
+      box-shadow: 0 0 0 1px rgba(23, 59, 79, 0.15);
+    }
+
+    .textarea {
+      min-height: 110px;
       resize: vertical;
     }
 
-    .form-field textarea {
-      min-height: 80px;
+    .btn-small {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary-soft);
+      color: #fff;
+      font-size: 0.88rem;
+      cursor: pointer;
+      margin-top: 0.4rem;
     }
 
-    .form-actions {
-      margin-top: 0.75rem;
-    }
-
-    .schedule-card {
-      margin-top: 1rem;
-    }
-
-    .scheduler-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 1.2rem;
-      margin-top: 0.6rem;
-    }
-
-    @media (max-width: 800px) {
-      .scheduler-grid {
-        grid-template-columns: 1fr;
-      }
+    .btn-small:hover {
+      filter: brightness(1.05);
     }
 
     .slot-list {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
-      align-items: flex-start;
+      margin-top: 0.5rem;
     }
 
     .slot-btn {
       border-radius: 999px;
       border: 1px solid rgba(15, 23, 42, 0.18);
-      padding: 0.35rem 0.85rem;
+      padding: 0.4rem 0.9rem;
       font-size: 0.85rem;
-      background: #ffffff;
+      background: #f8fafc;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.05s ease;
     }
 
     .slot-btn:hover {
-      background: #e4edf6;
-      transform: translateY(-1px);
-    }
-
-    .slot-btn.booked {
-      background: #d4dde7;
-      color: #777;
-      border-style: dashed;
-      cursor: not-allowed;
-    }
-
-    .schedule-hint {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 0.5rem;
+      background: #e6f0f7;
     }
 
     .schedule-note {
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       color: var(--muted);
-      margin-top: 0.35rem;
+      margin-top: 0.3rem;
     }
 
-    .schedule-status {
+    #schedule-status {
+      margin-top: 0.4rem;
       font-size: 0.85rem;
-      margin-top: 0.5rem;
       color: var(--primary-soft);
+    }
+
+    .headshot-wrap {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .headshot-wrap img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(23, 59, 79, 0.15);
+    }
+
+    .headshot-wrap p {
+      margin: 0;
+      font-size: 0.9rem;
     }
   </style>
 </head>
-
 <body>
   <header>
     <div class="nav-inner">
-      <div class="brand-inner">
-        <img src="Mountain to Sea.png" alt="Mountains to Sea Therapy logo" class="brand-logo" />
+      <div class="brand">
+        <div class="brand-logo">
+          <!-- your circle logo -->
+          <img src="Mountain to Sea.png" alt="Mountains to Sea Therapy logo" />
+        </div>
         <div class="brand-text">
-          <span>Abby Teed, LCSW</span>
+          <span>Abby Teed, LCSW</span><br />
           <span>Mountains to Sea Therapy</span>
         </div>
       </div>
-
       <nav>
         <a href="#about">About</a>
-        <a href="#name-story">Name Story</a>
         <a href="#who-i-help">Who I Help</a>
         <a href="#approach">How I Work</a>
-        <a href="#fees">Insurance &amp; Fees</a>
-        <a href="#schedule">Schedule</a>
+        <a href="#fees">Insurance & Fees</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -608,15 +559,18 @@
   <section class="hero">
     <div>
       <div class="hero-kicker">Online therapy for North Carolina residents</div>
-      <h1 class="hero-title">From the mountains to the sea, your story belongs here.</h1>
+      <h1 class="hero-title">
+        From the mountains to the sea, your story belongs here.
+      </h1>
       <p class="hero-subtitle">
-        I support children, teens, adults, and families who are carrying the weight of trauma, anxiety,
-        and big life changes. Together, we slow down, listen to your body and your story, and move
-        toward the version of you that feels most like home.
+        I support children, teens, adults, and families who are carrying the
+        weight of trauma, anxiety, and big life changes. Together, we slow
+        down, listen to your body and your story, and move toward the version
+        of you that feels most like home.
       </p>
 
       <div class="hero-buttons">
-        <a class="btn-primary" href="#schedule">Request a session time</a>
+        <a class="btn-primary" href="#contact">Schedule a free 15-minute consult</a>
         <a
           class="btn-ghost"
           href="https://www.psychologytoday.com/us/therapists/abby-teed-shawboro-nc/1322715"
@@ -628,7 +582,8 @@
       </div>
 
       <p class="hero-note">
-        Serving clients <strong>online only</strong> across North Carolina • Ages 5+ • Individuals, couples, and families
+        Serving clients <strong>online only</strong> across North Carolina •
+        Ages 5+ • Individuals, couples, and families
       </p>
     </div>
 
@@ -636,11 +591,13 @@
       <div class="hero-art-inner">
         <div class="hero-art-title">Mountains &rarr; Sea</div>
         <p class="hero-art-main">
-          Some days feel like climbing a steep trail. Others feel like trying to stand still in shifting waves.
-          Therapy can be a steady place to pause, feel, and choose your next step.
+          Some days feel like climbing a steep trail. Others feel like trying to
+          stand still in shifting waves. Therapy can be a steady place to pause,
+          feel, and choose your next step.
         </p>
         <p class="hero-art-tagline">
-          We won't erase your past, but we can help you learn from it and carry it differently.
+          We won’t erase your past, but we can help you learn from it and carry
+          it differently.
         </p>
       </div>
       <div class="hero-waves"></div>
@@ -656,76 +613,49 @@
       <div class="two-column">
         <div>
           <p>
-            Hi, I’m <strong>Abby Teed (she/her), LCSW</strong>, a clinical social worker offering online therapy
-            for clients across North Carolina. I’m originally from Minnesota and have lived in both the mountains
-            and the coast of North Carolina, which deeply shapes how I think about change, seasons, and healing.
-            I’ve spent over a decade walking alongside children, teens,
-            and families through foster care, adoption, in-home services, and outpatient therapy.
+            Hi, I’m <strong>Abby Teed (she/her), LCSW</strong>, a clinical
+            social worker offering online therapy for clients across North
+            Carolina. I grew up in Minnesota, and over time my story has flowed
+            from the lakes and forests of the Midwest to the mountains and
+            coastal waters of North Carolina.
           </p>
           <p>
-            My work centers on helping people who have lived through hard things—big and small—and who are ready
-            to stop pretending everything is fine. Together we make room for the messy, human parts of your story
-            with warmth, humor, and a lot of compassion.
+            The name <strong>Mountains to Sea Therapy</strong> reflects that
+            journey. Life rarely moves in a straight line. There are seasons
+            that feel like switchbacks on a trail and seasons that feel like
+            standing in the surf, trying to keep your balance. My work is about
+            creating a steady, compassionate space where all of that can be
+            welcomed.
           </p>
           <p>
-            Whether you’re a kid feeling misunderstood, a parent feeling stuck, or an adult trying to untangle old
-            patterns, our time is a space where you don’t have to perform. You get to be real, in your own way,
-            at your own pace.
+            I’ve spent over a decade walking alongside children, teens, and
+            families through foster care, adoption, in-home services, and
+            outpatient therapy. Whether you’re a kid feeling misunderstood, a
+            parent feeling stuck, or an adult trying to untangle old patterns,
+            our time together is a place where you don’t have to perform. You
+            get to be real, in your own way, at your own pace.
           </p>
+
+          <div class="headshot-wrap">
+            <img src="Abby.png" alt="Abby Teed, LCSW" />
+            <p>
+              Abby Teed, LCSW<br />
+              Founder &amp; therapist at Mountains to Sea Therapy
+            </p>
+          </div>
         </div>
-        <div class="card profile-card">
-          <img src="Abby.png" alt="Photo of Abby Teed, LCSW" class="profile-photo" loading="lazy" />
+
+        <div class="card">
           <h3>Quick snapshot</h3>
           <ul>
             <li>Licensed Clinical Social Worker (LCSW) in North Carolina</li>
-            <li>Originally from Minnesota; now rooted in coastal North Carolina</li>
             <li>Master of Social Work, University of Oklahoma (2021)</li>
-            <li>10+ years supporting children &amp; families, including foster care and adoption work</li>
+            <li>
+              10+ years supporting children &amp; families, including foster
+              care and adoption work
+            </li>
             <li>Online-only practice based in Shawboro &amp; Moyock, NC</li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="name-story">
-      <h2>Why “Mountains to Sea”?</h2>
-      <div class="story-block">
-        <p>
-          The name <strong>Mountains to Sea Therapy</strong> holds pieces of my own story as well as the kind of
-          work I do with clients. I grew up in Minnesota, surrounded by lakes and long winters, and later found
-          myself moving between the mountains of North Carolina and, eventually, the coast.
-        </p>
-        <p>
-          Those landscapes feel a lot like the inner worlds my clients describe. The mountains remind me of the slow,
-          steady work of healing—showing up, one step at a time, even when the path is steep and you can’t see
-          the view yet. The sea feels more like the nervous system: tides that rise and fall, sudden storms,
-          moments of calm, and waves that keep returning to the shoreline.
-        </p>
-        <p class="story-highlight">
-          Mountains to Sea is my shorthand for the whole range of being human—from the uphill climbs to the days
-          you’re just trying to stay afloat. All of it belongs, and none of it disqualifies you from care.
-        </p>
-        <p>
-          My hope is that this practice feels like both a trailhead and a shoreline: a place where you can pause,
-          get your bearings, and choose what comes next with support, instead of having to figure it all out alone.
-        </p>
-
-        <div class="image-gallery">
-          <h3>From ridgelines to tide lines</h3>
-          <div class="image-row">
-            <figure>
-              <img src="Mountain.jpeg" alt="Soft mountain ridges in North Carolina" loading="lazy" />
-              <figcaption>Mountains: the slow climbs and long views that come with steady work over time.</figcaption>
-            </figure>
-            <figure>
-              <img src="Mountain Beach.PNG" alt="Artwork of mountains meeting the beach" loading="lazy" />
-              <figcaption>Where the two meet: the in-between spaces where a lot of therapy happens.</figcaption>
-            </figure>
-            <figure>
-              <img src="Beach.jpeg" alt="Beach along the North Carolina coast at sunset" loading="lazy" />
-              <figcaption>Sea: shifting tides, changing seasons, and the possibility of starting again.</figcaption>
-            </figure>
-          </div>
         </div>
       </div>
     </section>
@@ -736,8 +666,9 @@
         <div class="card">
           <h3>Children &amp; Preteens (5+)</h3>
           <p>
-            For kids, therapy is playful, creative, and grounded in safety. We might talk, draw, move, or
-            use sensory tools to help them express what’s going on inside.
+            For kids, therapy is playful, creative, and grounded in safety. We
+            might talk, draw, move, or use sensory tools to help them express
+            what’s going on inside.
           </p>
           <ul>
             <li>Big feelings, meltdowns, or “out of nowhere” reactions</li>
@@ -750,8 +681,9 @@
         <div class="card">
           <h3>Teens &amp; Young Adults</h3>
           <p>
-            Many teens and young adults show up carrying anxiety, people-pleasing, or a loud inner critic.
-            We work together to untangle where those patterns started and what you want next.
+            Many teens and young adults show up carrying anxiety,
+            people-pleasing, or a loud inner critic. We work together to
+            untangle where those patterns started and what you want next.
           </p>
           <ul>
             <li>Anxiety, depression, and burnout</li>
@@ -764,19 +696,22 @@
         <div class="card">
           <h3>Parents, Caregivers &amp; Families</h3>
           <p>
-            Parenting is hard; parenting kids with trauma, neurodivergence, or complex behavior can feel
-            impossible. We focus on connection, practical tools, and care for you as a person.
+            Parenting is hard; parenting kids with trauma, neurodivergence, or
+            complex behavior can feel impossible. We focus on connection,
+            practical tools, and care for you as a person.
           </p>
           <ul>
             <li>Adoption and post-adoption support</li>
             <li>Behavioral and attachment challenges</li>
             <li>Co-parenting and family communication</li>
-            <li>Support for caregivers who are exhausted and overwhelmed</li>
+            <li>
+              Support for caregivers who are exhausted and overwhelmed
+            </li>
           </ul>
         </div>
       </div>
 
-      <div class="cards" style="margin-top:1.5rem;">
+      <div class="cards" style="margin-top: 1.5rem">
         <div class="card">
           <h3>Specialties</h3>
           <div class="pill-row">
@@ -793,11 +728,13 @@
         <div class="card">
           <h3>Inclusive, affirming care</h3>
           <p>
-            My practice is affirming for LGBTQ+ folks, diverse family structures, non-monogamous relationships,
-            and people navigating faith shifts and cultural questions.
+            My practice is affirming for LGBTQ+ folks, diverse family
+            structures, non-monogamous relationships, and people navigating
+            faith shifts and cultural questions.
           </p>
           <p>
-            Therapy is a shame-free zone. You don’t have to earn your way into being taken seriously here.
+            Therapy is a shame-free zone. You don’t have to earn your way into
+            being taken seriously here.
           </p>
         </div>
       </div>
@@ -808,31 +745,49 @@
       <div class="two-column">
         <div>
           <p>
-            I blend several trauma-informed approaches so we can work with both your mind and your body.
-            Sessions are relaxed, collaborative, and tailored to what you need that day rather than a rigid script.
+            I blend several trauma-informed approaches so we can work with both
+            your mind and your body. Sessions are relaxed, collaborative, and
+            tailored to what you need that day rather than a rigid script.
           </p>
           <p>
-            You might notice we check in with your body—your breath, your muscles, your posture—as much as
-            your thoughts. We might use movement, tapping, or grounding exercises to help your nervous system
-            feel safer while we process hard things.
+            You might notice we check in with your body—your breath, your
+            muscles, your posture—as much as your thoughts. We might use
+            movement, tapping, or grounding exercises to help your nervous
+            system feel safer while we process hard things.
           </p>
           <p>
-            Some sessions are deep and emotional. Others are about problem-solving, parenting strategies,
-            or just having one hour where you don’t have to hold everything together. All of it counts.
+            Some sessions are deep and emotional. Others are about
+            problem-solving, parenting strategies, or just having one hour
+            where you don’t have to hold everything together. All of it counts.
           </p>
         </div>
         <div class="card">
           <h3>Modalities I draw from</h3>
           <ul>
-            <li><strong>EMDR</strong> – to process traumatic or overwhelming experiences</li>
-            <li><strong>Somatic Therapy</strong> – noticing how stress and memory live in the body</li>
-            <li><strong>Internal Family Systems / Parts Work</strong> – understanding the different “parts” of you</li>
-            <li><strong>Attachment-based &amp; Family Systems</strong> – focusing on relationships and connection</li>
-            <li><strong>Playful, creative approaches</strong> – especially with kids &amp; teens</li>
+            <li>
+              <strong>EMDR</strong> – to process traumatic or overwhelming
+              experiences
+            </li>
+            <li>
+              <strong>Somatic Therapy</strong> – noticing how stress and memory
+              live in the body
+            </li>
+            <li>
+              <strong>Internal Family Systems / Parts Work</strong> – exploring
+              the different “parts” of you
+            </li>
+            <li>
+              <strong>Attachment-based &amp; Family Systems</strong> – focusing
+              on relationships and connection
+            </li>
+            <li>
+              <strong>Playful, creative approaches</strong> – especially with
+              kids &amp; teens
+            </li>
           </ul>
           <p class="notice">
-            We’ll always talk about what we’re doing and why, and you’re encouraged to say what is or isn’t
-            working for you.
+            We’ll always talk about what we’re doing and why, and you’re
+            encouraged to say what is or isn’t working for you.
           </p>
         </div>
       </div>
@@ -850,18 +805,20 @@
             <li>MedCost</li>
           </ul>
           <p class="notice">
-            Coverage and copays vary by plan. We’ll confirm benefits before starting so there are no surprises.
+            Coverage and copays vary by plan. We’ll confirm benefits before
+            starting so there are no surprises.
           </p>
         </div>
 
         <div class="card">
           <h3>Private pay &amp; sliding scale</h3>
           <p>
-            For clients without insurance or who prefer not to use it, I offer self-pay options and
-            an income-based sliding scale.
+            For clients without insurance or who prefer not to use it, I offer
+            self-pay options and an income-based sliding scale.
           </p>
           <p class="notice">
-            We can talk through what’s sustainable for you during the consultation call.
+            We can talk through what’s sustainable for you during the
+            consultation call.
           </p>
         </div>
 
@@ -870,74 +827,10 @@
           <ul>
             <li>Online-only sessions for residents of North Carolina</li>
             <li>Children 5+, teens, adults, couples, and families</li>
-            <li>Payment options include major credit cards and HSA/FSA cards</li>
+            <li>
+              Payment options include major credit cards and HSA/FSA cards
+            </li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="schedule">
-      <h2>Request a Session Time</h2>
-      <div class="card schedule-card">
-        <p>
-          This form lets you share a preferred date and time for a session. Abby will review your request, check it
-          against her schedule, and follow up by email to confirm or offer alternatives.
-        </p>
-
-        <div class="scheduler-grid">
-          <div>
-            <div class="form-field">
-              <label for="schedule-name">Your name</label>
-              <input id="schedule-name" type="text" autocomplete="name" />
-            </div>
-
-            <div class="form-field">
-              <label for="schedule-email">Your email</label>
-              <input id="schedule-email" type="email" autocomplete="email" />
-            </div>
-
-            <!-- honeypot field (hidden) -->
-            <div class="form-field" style="position:absolute; left:-9999px; top:auto;">
-              <label for="schedule-extra">If you are human, leave this blank</label>
-              <input id="schedule-extra" type="text" autocomplete="off" />
-            </div>
-
-            <div class="form-field">
-              <label for="schedule-date">Preferred date</label>
-              <input id="schedule-date" type="date" />
-            </div>
-
-            <div class="form-field">
-              <label for="schedule-notes">Anything you’d like Abby to know (optional)</label>
-              <textarea id="schedule-notes" placeholder="You can briefly share what you’re hoping for from therapy or this session."></textarea>
-            </div>
-
-            <p class="schedule-note">
-              This is a request, not a guaranteed booking. Abby will email you to confirm or suggest another time.
-            </p>
-
-            <p id="schedule-status" class="schedule-status"></p>
-
-            <div id="schedule-ics-wrapper" class="form-actions" style="margin-top:0.75rem; display:none;">
-              <button type="button" class="btn-ghost btn-small" onclick="downloadIcsForLastRequest()">
-                Download calendar event (.ics)
-              </button>
-              <p class="schedule-note">
-                You can add this event file to your own calendar. Abby will still confirm the exact time by email.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h3>Available time slots</h3>
-            <p class="schedule-hint">
-              Choose a date on the left to see available times. Once a time is requested from this device, it will be
-              marked as booked here.
-            </p>
-            <div id="slot-list" class="slot-list">
-              <!-- filled by JavaScript -->
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -946,11 +839,13 @@
       <h2>Contact &amp; Scheduling</h2>
       <div class="contact-box">
         <p>
-          Taking the first step into therapy can feel intimidating. A short conversation can help you figure out
-          whether I’m a good fit and what you’re hoping for from this work.
+          Taking the first step into therapy can feel intimidating. A short
+          conversation can help you figure out whether I’m a good fit and what
+          you’re hoping for from this work.
         </p>
 
         <div class="contact-grid">
+          <!-- LEFT: info + contact form -->
           <div>
             <div class="contact-item">
               <div class="contact-label">Phone</div>
@@ -969,41 +864,114 @@
             </div>
 
             <p class="notice">
-              Please note: Email, voicemail, and online messaging are not appropriate for emergencies.
-              If you are in immediate danger, call 911 or go to your nearest emergency room.
+              Please note: Email, voicemail, and online messaging are not
+              appropriate for emergencies. If you are in immediate danger, call
+              911 or go to your nearest emergency room.
             </p>
 
-            <div class="form-grid" style="margin-top:1rem;">
-              <div class="form-field">
-                <label for="contact-name">Your name</label>
-                <input id="contact-name" type="text" autocomplete="name" />
+            <h3 style="margin-top: 1.2rem">Send a message</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.4rem">
+              Use this form to start a conversation. Your email app will open
+              with everything filled in so you can review before sending.
+            </p>
+
+            <div class="form-grid">
+              <div class="form-row-double">
+                <div>
+                  <div class="input-label">Name</div>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    class="text-input"
+                    autocomplete="name"
+                  />
+                </div>
+                <div>
+                  <div class="input-label">Email</div>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    class="text-input"
+                    autocomplete="email"
+                  />
+                </div>
               </div>
-              <div class="form-field">
-                <label for="contact-email">Your email</label>
-                <input id="contact-email" type="email" autocomplete="email" />
+              <div>
+                <div class="input-label">Message</div>
+                <textarea
+                  id="contact-message"
+                  class="textarea"
+                  placeholder="Share a bit about what you’re hoping for..."
+                ></textarea>
               </div>
-            </div>
-            <div class="form-field" style="margin-top:0.5rem;">
-              <label for="contact-message">Message</label>
-              <textarea id="contact-message" placeholder="Share a bit about what you’re looking for or any questions you have."></textarea>
-            </div>
-            <div class="form-actions">
-              <button type="button" class="btn-primary btn-small" onclick="sendContactEmail()">
-                Send message to Abby
+              <button type="button" class="btn-small" onclick="sendContactEmail()">
+                Open email to Abby
               </button>
             </div>
           </div>
 
+          <!-- RIGHT: service area + simple scheduler -->
           <div>
             <h3>Primary service areas</h3>
-            <p>
-              Online sessions for clients based in:
-            </p>
+            <p>Online sessions for clients based in:</p>
             <ul>
               <li>Shawboro &amp; Moyock, NC</li>
               <li>Surrounding Currituck &amp; Pasquotank counties</li>
               <li>Anywhere in North Carolina via telehealth</li>
             </ul>
+
+            <h3 style="margin-top: 1.4rem">Request a time</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.4rem">
+              Choose a date and a time that works for you. Your email app will
+              open with a request Abby can reply to.
+            </p>
+
+            <div class="form-grid">
+              <div class="form-row-double">
+                <div>
+                  <div class="input-label">Name</div>
+                  <input
+                    id="schedule-name"
+                    type="text"
+                    class="text-input"
+                    autocomplete="name"
+                  />
+                </div>
+                <div>
+                  <div class="input-label">Email</div>
+                  <input
+                    id="schedule-email"
+                    type="email"
+                    class="text-input"
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div class="input-label">Preferred date</div>
+                <input
+                  id="schedule-date"
+                  type="date"
+                  class="date-input"
+                />
+              </div>
+
+              <div>
+                <div class="input-label">Available times</div>
+                <div id="slot-list" class="slot-list"></div>
+                <p id="schedule-status"></p>
+              </div>
+
+              <div>
+                <div class="input-label">Anything else you’d like to share</div>
+                <textarea
+                  id="schedule-notes"
+                  class="textarea"
+                  placeholder="Optional details (video preference, time zone, brief context, etc.)"
+                ></textarea>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1011,53 +979,67 @@
   </main>
 
   <footer>
-    Mountains to Sea Therapy &middot; Abby Teed, LCSW &middot; Online therapy across North Carolina
+    Mountains to Sea Therapy &middot; Abby Teed, LCSW &middot; Online therapy
+    across North Carolina
   </footer>
 
   <script>
-    // ---------- Simple local "scheduler" demo logic ----------
-    // NOTE: This blocks slots only per browser using localStorage.
-    // Real multi-user scheduling would need a backend + database.
+    // SIMPLE MAILTO-BASED CONTACT + SCHEDULER
+    // No EmailJS, no backend – just opens the visitor's email app.
 
-    const EMAILJS_SERVICE_ID = "service_erdtssf";
-    const EMAILJS_TEMPLATE_ID = "template_aub1o6a";
-
-    const SCHEDULE_TIMES = [
-      "9:00 AM",
-      "10:30 AM",
-      "1:00 PM",
-      "3:00 PM"
-    ];
-
-    const STORAGE_KEY = "mts_booked_slots_v1";
-    let lastEventDetails = null; // for ICS download
-
-    function loadBookedSlots() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : {};
-      } catch (e) {
-        return {};
-      }
+    function buildMailto(subject, bodyLines) {
+      const enc = encodeURIComponent;
+      const body = enc(bodyLines.join("\n"));
+      const subj = enc(subject);
+      return (
+        "mailto:abby@mountainstoseatherapy.com?subject=" +
+        subj +
+        "&body=" +
+        body
+      );
     }
 
-    function saveBookedSlots(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        // ignore
+    // ---------- CONTACT FORM ----------
+
+    function sendContactEmail() {
+      const name = document.getElementById("contact-name")?.value.trim();
+      const email = document.getElementById("contact-email")?.value.trim();
+      const message = document.getElementById("contact-message")?.value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please enter your name, email, and a short message.");
+        return;
       }
+
+      const lines = [
+        "New contact message from the Mountains to Sea Therapy website.",
+        "",
+        "Name: " + name,
+        "Email: " + email,
+        "",
+        "Message:",
+        message
+      ];
+
+      const mailto = buildMailto("New contact from website", lines);
+      window.location.href = mailto;
     }
+
+    // ---------- SCHEDULER (LOCAL, MAILTO-ONLY) ----------
+
+    const SCHEDULE_TIMES = ["9:00 AM", "10:30 AM", "1:00 PM", "3:00 PM"];
 
     function renderSlots() {
       const dateInput = document.getElementById("schedule-date");
       const slotList = document.getElementById("slot-list");
       const status = document.getElementById("schedule-status");
-      const dateVal = dateInput.value;
+
+      if (!dateInput || !slotList) return;
 
       slotList.innerHTML = "";
       status.textContent = "";
 
+      const dateVal = dateInput.value;
       if (!dateVal) {
         const msg = document.createElement("p");
         msg.className = "schedule-note";
@@ -1066,65 +1048,24 @@
         return;
       }
 
-      const booked = loadBookedSlots();
-
       SCHEDULE_TIMES.forEach((time) => {
-        const key = dateVal + "|" + time;
         const btn = document.createElement("button");
         btn.textContent = time;
         btn.className = "slot-btn";
-
-        if (booked[key]) {
-          btn.classList.add("booked");
-          btn.disabled = true;
-          btn.title = "Requested from this device";
-        } else {
-          btn.addEventListener("click", () => handleSlotClick(dateVal, time));
-        }
-
+        btn.addEventListener("click", () => handleSlotClick(dateVal, time));
         slotList.appendChild(btn);
       });
     }
 
-    function parseTimeToHoursMinutes(timeStr) {
-      const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-      if (!match) return { hours: 9, minutes: 0 };
-      let hours = parseInt(match[1], 10);
-      const minutes = parseInt(match[2], 10);
-      const period = match[3].toUpperCase();
-      if (period === "PM" && hours < 12) hours += 12;
-      if (period === "AM" && hours === 12) hours = 0;
-      return { hours, minutes };
-    }
-
-    function formatDateToIcs(dt) {
-      const pad = (n) => String(n).padStart(2, "0");
-      return (
-        dt.getUTCFullYear().toString() +
-        pad(dt.getUTCMonth() + 1) +
-        pad(dt.getUTCDate()) +
-        "T" +
-        pad(dt.getUTCHours()) +
-        pad(dt.getUTCMinutes()) +
-        pad(dt.getUTCSeconds()) +
-        "Z"
-      );
-    }
-
     function handleSlotClick(dateVal, timeVal) {
-      const name = document.getElementById("schedule-name").value.trim();
-      const email = document.getElementById("schedule-email").value.trim();
-      const notes = document.getElementById("schedule-notes").value.trim();
+      const name = document.getElementById("schedule-name")?.value.trim();
+      const email = document.getElementById("schedule-email")?.value.trim();
+      const notes = document.getElementById("schedule-notes")?.value.trim();
       const status = document.getElementById("schedule-status");
-      const honeypot = document.getElementById("schedule-extra").value.trim();
-
-      if (honeypot) {
-        status.textContent = "Something went wrong. Please try again.";
-        return;
-      }
 
       if (!name || !email) {
-        status.textContent = "Please enter your name and email before choosing a time.";
+        status.textContent =
+          "Please enter your name and email before choosing a time.";
         return;
       }
 
@@ -1133,160 +1074,33 @@
         return;
       }
 
-      if (typeof emailjs === "undefined") {
-        console.error("EmailJS is not loaded (emailjs is undefined).");
-        status.textContent =
-          "There was a problem sending your request (email service not loaded). Please email Abby at abby@mountainstoseatherapy.com.";
-        return;
-      }
+      const humanDate = new Date(dateVal + "T12:00:00").toLocaleDateString(
+        undefined,
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
+      );
 
-      const humanDate = new Date(dateVal + "T12:00:00").toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-
-      const templateParams = {
-        from_name: name,
-        from_email: email,
-        message: "Session request from the Mountains to Sea Therapy website.",
-        kind: "schedule request",
-        preferred_date: humanDate,
-        preferred_time: timeVal,
-        extra_notes: notes || "(none provided)"
-      };
-
-      status.textContent = "Sending your request...";
-
-      emailjs
-        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-        .then(() => {
-          status.textContent = `Requested ${humanDate} at ${timeVal}. Abby will follow up by email.`;
-
-          const booked = loadBookedSlots();
-          const key = dateVal + "|" + timeVal;
-          booked[key] = true;
-          saveBookedSlots(booked);
-          renderSlots();
-
-          lastEventDetails = {
-            name,
-            email,
-            dateVal,
-            timeVal,
-            notes
-          };
-
-          const icsWrapper = document.getElementById("schedule-ics-wrapper");
-          if (icsWrapper) {
-            icsWrapper.style.display = "block";
-          }
-        })
-        .catch((error) => {
-          console.error("EmailJS error (schedule):", error);
-          status.textContent =
-            "There was a problem sending your request. You can also email Abby at abby@mountainstoseatherapy.com.";
-        });
-    }
-
-    function downloadIcsForLastRequest() {
-      if (!lastEventDetails) {
-        alert("Please request a session time first.");
-        return;
-      }
-
-      const { name, email, dateVal, timeVal, notes } = lastEventDetails;
-      const { hours, minutes } = parseTimeToHoursMinutes(timeVal);
-
-      const start = new Date(dateVal + "T00:00:00");
-      start.setHours(hours, minutes, 0, 0);
-      const end = new Date(start.getTime() + 60 * 60 * 1000);
-
-      const dtStamp = new Date();
-      const dtStartStr = formatDateToIcs(start);
-      const dtEndStr = formatDateToIcs(end);
-      const dtStampStr = formatDateToIcs(dtStamp);
-
-      const descriptionLines = [
-        `Client: ${name}`,
-        `Client email: ${email}`,
+      const lines = [
+        "New session request from the Mountains to Sea Therapy website.",
         "",
-        "Additional notes:",
-        notes || "(none provided)",
+        "Name: " + name,
+        "Email: " + email,
         "",
-        "Requested via the Mountains to Sea Therapy website."
+        "Preferred Date: " + humanDate,
+        "Preferred Time: " + timeVal,
+        "",
+        "Additional Notes:",
+        notes || "(none provided)"
       ];
 
-      const icsContent = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Mountains to Sea Therapy//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        `UID:${Date.now()}@mountainstoseatherapy.com`,
-        `DTSTAMP:${dtStampStr}`,
-        `DTSTART:${dtStartStr}`,
-        `DTEND:${dtEndStr}`,
-        `SUMMARY:Therapy session request with ${name}`,
-        "DESCRIPTION:" + descriptionLines.join("\\n").replace(/\n/g, "\\n"),
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\r\n");
+      const mailto = buildMailto("Session request from website", lines);
+      window.location.href = mailto;
 
-      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "session-request.ics";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function sendContactEmail() {
-      const name = document.getElementById("contact-name").value.trim();
-      const email = document.getElementById("contact-email").value.trim();
-      const message = document.getElementById("contact-message").value.trim();
-
-      if (!email && !message) {
-        alert("Please include at least an email and a short message.");
-        return;
-      }
-
-      if (typeof emailjs === "undefined") {
-        console.error("EmailJS is not loaded (emailjs is undefined).");
-        alert(
-          "There was a problem sending your message (email service not loaded). You can also email Abby at abby@mountainstoseatherapy.com."
-        );
-        return;
-      }
-
-      const templateParams = {
-        from_name: name || "(not provided)",
-        from_email: email || "(not provided)",
-        message: message || "(no message provided)",
-        kind: "contact form",
-        preferred_date: "(not provided)",
-        preferred_time: "(not provided)",
-        extra_notes: ""
-      };
-
-      emailjs
-        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-        .then(() => {
-          alert("Your message has been sent to Abby.");
-          document.getElementById("contact-name").value = "";
-          document.getElementById("contact-email").value = "";
-          document.getElementById("contact-message").value = "";
-        })
-        .catch((error) => {
-          console.error("EmailJS error (contact):", error);
-          alert(
-            "Something went wrong sending your message. You can also email Abby at abby@mountainstoseatherapy.com."
-          );
-        });
+      status.textContent =
+        "Opening your email app to send the request. If nothing opens, you can email Abby directly at abby@mountainstoseatherapy.com.";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
