@@ -22,7 +22,7 @@
   </g>
 
   <path id="text-arc-top" d="M 90 256 A 166 166 0 0 1 422 256" fill="none" />
-  <path id="text-arc-bottom" d="M 90 256 A 166 166 0 0 0 422 256" fill="none" />
+  <path id="text-arc-bottom" d="M 422 256 A 166 166 0 0 1 90 256" fill="none" />
 
   <text font-family="'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif" font-size="32" letter-spacing="6" fill="#1d5578" font-weight="700">
     <textPath xlink:href="#text-arc-top" startOffset="50%" text-anchor="middle">MOUNTAINS TO SEA</textPath>
