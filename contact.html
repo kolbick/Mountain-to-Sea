@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | Mountains to Sea Therapy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Contact Mountains to Sea Therapy and request a free 15-minute consult." />
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#173b4f" />
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="Mountain to Sea.png" alt="Mountains to Sea Therapy logo" />
+        </div>
+        <div class="brand-text">
+          <span>Abby Teed, LCSW</span><br />
+          <span>Mountains to Sea Therapy</span>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="who-i-help.html">Who I Help</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="insurance-fees.html">Insurance & Fees</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <h1>Contact &amp; Scheduling</h1>
+      <p>
+        Taking the first step into therapy can feel intimidating. A short conversation can help you figure out whether I’m a good fit and what you’re hoping for from this work.
+      </p>
+    </section>
+
+    <section class="contact-page-grid">
+      <div class="form-card">
+        <h2>Send a message</h2>
+        <p class="notice">
+          Please note: Email, voicemail, and online messaging are not appropriate for emergencies. If you are in immediate danger, call 911 or go to your nearest emergency room.
+        </p>
+
+        <div class="contact-item" style="margin-top: 0.7rem">
+          <div class="contact-label">Phone</div>
+          <a href="tel:18287617475">(828) 761-7475</a>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">Psychology Today profile</div>
+          <a href="https://www.psychologytoday.com/us/therapists/abby-teed-shawboro-nc/1322715" target="_blank" rel="noreferrer">View profile &amp; send a secure message</a>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">Service area</div>
+          <ul>
+            <li>Shawboro &amp; Moyock, NC</li>
+            <li>Surrounding Currituck &amp; Pasquotank counties</li>
+            <li>Anywhere in North Carolina via telehealth</li>
+          </ul>
+        </div>
+
+        <form id="contact-form">
+          <label>
+            Name
+            <input type="text" name="from_name" required>
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="from_email" required>
+          </label>
+
+          <label>
+            Message
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+
+          <input type="hidden" name="form_type" value="General contact">
+
+          <button type="submit">Send Message</button>
+          <p id="contact-status" class="form-status"></p>
+        </form>
+      </div>
+
+      <div class="form-card">
+        <form id="schedule-form">
+          <h2>Request a free 15-minute consult</h2>
+
+          <label>
+            Name
+            <input type="text" name="from_name" required>
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="from_email" required>
+          </label>
+
+          <label>
+            Preferred date
+            <input type="date" name="preferred_date" required>
+          </label>
+
+          <fieldset class="time-slot-list">
+            <legend>Preferred time (between 10:00 AM and 5:00 PM)</legend>
+            <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
+            <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
+            <button type="button" class="time-slot" data-time="12:00 PM">12:00 PM</button>
+            <button type="button" class="time-slot" data-time="1:00 PM">1:00 PM</button>
+            <button type="button" class="time-slot" data-time="2:00 PM">2:00 PM</button>
+            <button type="button" class="time-slot" data-time="3:00 PM">3:00 PM</button>
+            <button type="button" class="time-slot" data-time="4:00 PM">4:00 PM</button>
+          </fieldset>
+
+          <input type="hidden" name="preferred_time" id="preferred_time" required>
+
+          <label>
+            Preferred contact method
+            <select name="contact_method" required>
+              <option value="" selected disabled>Select one</option>
+              <option value="Email">Email</option>
+              <option value="Phone call">Phone call</option>
+              <option value="Video session">Video session</option>
+            </select>
+          </label>
+
+          <label>
+            Notes (optional)
+            <textarea name="message" rows="3"></textarea>
+          </label>
+
+          <input type="hidden" name="form_type" value="Free consult request">
+
+          <button type="submit">Request Consult</button>
+          <p id="schedule-status" class="form-status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Mountains to Sea Therapy · Abby Teed, LCSW · Online therapy across North Carolina
+  </footer>
+</body>
+</html>
