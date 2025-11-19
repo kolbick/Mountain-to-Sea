@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Inter:wght@400;500;600&display=swap");
 
 :root {
   --bg: #f5f7fa;
@@ -76,16 +76,17 @@ header {
 }
 
 .brand-text {
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .brand-text span {
-  font-family: "Playfair Display", "Times New Roman", serif;
-  text-transform: none;
-  color: #f2f6f9;
+  font-family: "Fredoka", "Inter", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff9e6;
+  text-shadow: 0 4px 16px rgba(5, 20, 31, 0.55);
 }
 
 .main-nav a {
