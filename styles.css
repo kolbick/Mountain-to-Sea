@@ -58,7 +58,6 @@ header {
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +66,9 @@ header {
 .brand-logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 8px 18px rgba(8, 25, 38, 0.4));
 }
 
 .brand-text {
@@ -87,10 +88,31 @@ header {
   text-decoration: none;
   font-size: 0.9rem;
   margin-left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding-bottom: 0.2rem;
+  transition: color 0.2s ease;
 }
 
 .main-nav a:hover {
-  text-decoration: underline;
+  color: #fff;
+}
+
+.main-nav a[aria-current="page"] {
+  color: #fff;
+  font-weight: 700;
+}
+
+.main-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 999px;
 }
 
 .hero {
@@ -669,24 +691,86 @@ button[type="submit"]:hover {
   }
 }
 
+.about-photo-main {
+  text-align: center;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), #f5f8fb);
+  border-radius: 1.6rem;
+  padding: 1.5rem 1rem 1.8rem;
+  border: 1px solid rgba(23, 59, 79, 0.08);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-photo-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 15%, rgba(244, 180, 26, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(23, 59, 79, 0.18), transparent 50%);
+  z-index: 0;
+}
+
+.about-headshot-frame {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(23, 59, 79, 0.08);
+  padding: 1rem;
+}
+
 .about-headshot {
-  max-width: 260px;
-  border-radius: 999px;
+  width: 100%;
+  max-width: 220px;
+  border-radius: 50%;
   display: block;
-  margin: 0 auto 1.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+}
+
+.about-headshot-caption {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.4;
+  z-index: 1;
+  max-width: 360px;
+  text-align: center;
 }
 
 .about-action-photo {
-  max-width: 220px;
-  border-radius: 1.25rem;
+  width: 100%;
+  height: 100%;
+  max-height: 360px;
+  border-radius: 1.1rem;
   display: block;
-  margin: 0 auto;
+  object-fit: cover;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
 }
 
-.about-photo-secondary,
-.about-photo-main {
-  text-align: center;
+.about-photo-secondary {
+  position: relative;
+  padding: 1.4rem;
+  border-radius: 1.5rem;
+  background: radial-gradient(circle at 25% 20%, rgba(255, 196, 86, 0.22), transparent 46%),
+    radial-gradient(circle at 80% 40%, rgba(23, 59, 79, 0.14), transparent 50%),
+    linear-gradient(145deg, #f4fafc 0%, #e2edf3 100%);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
 }
 
 .headshot-wrap {

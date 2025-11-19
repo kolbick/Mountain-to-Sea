@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Mountains to Sea Therapy logo</title>
+  <desc id="desc">Circular white badge with blue lettering plus stylized mountains and waves</desc>
+  <defs>
+    <linearGradient id="ridge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d5578" />
+      <stop offset="100%" stop-color="#214867" />
+    </linearGradient>
+    <linearGradient id="surf" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1d5578" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#2f6d92" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="240" fill="#ffffff" stroke="#1d5578" stroke-width="14" />
+  <circle cx="256" cy="256" r="190" fill="none" stroke="#88aeca" stroke-width="4" />
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M138 280 L204 214 L244 252 L298 200 L374 280" stroke="url(#ridge)" stroke-width="14" />
+    <path d="M144 316 C176 300 208 304 236 316 C266 330 290 330 322 318 C354 306 378 306 400 316" stroke="url(#surf)" stroke-width="12" />
+    <path d="M148 346 C180 332 212 340 240 352 C266 362 300 364 332 350 C358 340 384 340 406 352" stroke="#1d5578" stroke-width="10" />
+  </g>
+
+  <path id="text-arc-top" d="M 90 256 A 166 166 0 0 1 422 256" fill="none" />
+  <path id="text-arc-bottom" d="M 422 256 A 166 166 0 0 1 90 256" fill="none" />
+
+  <text font-family="'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif" font-size="32" letter-spacing="6" fill="#1d5578" font-weight="700">
+    <textPath xlink:href="#text-arc-top" startOffset="50%" text-anchor="middle">MOUNTAINS TO SEA</textPath>
+  </text>
+  <text font-family="'Montserrat', 'Avenir Next', 'Segoe UI', sans-serif" font-size="32" letter-spacing="6" fill="#1d5578" font-weight="700">
+    <textPath xlink:href="#text-arc-bottom" startOffset="50%" text-anchor="middle">THERAPY</textPath>
+  </text>
+</svg>
