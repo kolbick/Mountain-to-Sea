@@ -501,80 +501,26 @@ li {
 }
 
 .pt-profile-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.95rem 1rem;
-  background: #fff;
-  border-radius: 1rem;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  justify-content: center;
+  padding: 0.5rem 0;
   text-decoration: none;
-  color: var(--text);
-  transition: transform 120ms ease, box-shadow 120ms ease;
-  max-width: 520px;
-  width: 100%;
 }
 
-.pt-profile-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+.pt-profile-badge:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
-.pt-profile-logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #f2f6fb, #e6eef5);
-  padding: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  flex-shrink: 0;
-}
-
-.pt-profile-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.pt-profile-name {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.pt-verified-icon {
-  color: #2563eb;
-  font-size: 0.95rem;
-}
-
-.pt-profile-subtitle {
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.pt-profile-verified {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #2563eb;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.pt-check {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #def7ec;
-  color: #047857;
-  display: inline-grid;
-  place-items: center;
-  font-size: 0.78rem;
-  font-weight: 700;
-  box-shadow: inset 0 0 0 1px rgba(4, 120, 87, 0.1);
+.pt-verified-image {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.16));
+  border-radius: 12px;
 }
 
 footer {
@@ -641,6 +587,11 @@ footer {
 .footer-links .pt-profile-badge {
   color: var(--text);
   max-width: none;
+  padding: 0.25rem 0;
+}
+
+.footer-links .pt-verified-image {
+  width: 200px;
 }
 
 .footer-cta {
