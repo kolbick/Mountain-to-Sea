@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="180" viewBox="0 0 180 180">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 180 180">
   <defs>
     <clipPath id="circleClip">
       <circle cx="90" cy="90" r="90" />
     </clipPath>
   </defs>
-  <image width="180" height="180" x="0" y="0" clip-path="url(#circleClip)" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAADakElEQVR4nLT9dZwcx/H/Ab97YHmPpBMzSxZZkiVbZmaImZnjJHac2I6Z4thObCdmZmbHzCST
+  <image width="180.000" height="180.000" x="-0.000" y="-0.000" preserveAspectRatio="xMidYMid slice" clip-path="url(#circleClip)" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAADakElEQVR4nLT9dZwcx/H/Ab97YHmPpBMzSxZZkiVbZmaImZnjJHac2I6Z4thObCdmZmbHzCST
 bFmymJlPd9LdLczuQD9/DOzs3p7j7/P8nnm9pNudnWmorq76VHV1tVgwb5YEkIAQgJSA4LdcMvi/9LwI/dZZKTL0WYS/S+k1IvybRIQ+VX0v9D1cpwyVJ5De
 86LKM6GWS+9ZEeqJ9OqXbiv8igSgKgqKqiCEQBHuTf+z9zVUq9sGKd2+OI7jfcf9LB1sW7q/e9UK712/OQJKbQu3XYapUWqfSz3pDWv4vfLPlWMlQ5/cEqrT
 HUB4/fELEV6ZHSkeGkMpEaGxdl8pjXbl5Y9tZ3zlt0lTFKUDIf4v169V8GsN+K2lS5ROy1eq3C//PUz6X3u69I47pyVI6X0XCFWgKiqqqqCrKlIIbEfi2A5G
