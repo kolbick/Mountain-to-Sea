@@ -17,6 +17,10 @@
   font-family: "Georgia", "Times New Roman", serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -152,9 +156,11 @@ header {
 }
 
 .hero-title {
-  font-size: 2.3rem;
-  margin-bottom: 0.6rem;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
   color: var(--primary);
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .hero-subtitle {
@@ -172,8 +178,8 @@ header {
 
 .btn-primary,
 .btn-ghost {
-  padding: 0.7rem 1.3rem;
-  border-radius: 999px;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
   border: 2px solid transparent;
   font-size: 0.95rem;
   cursor: pointer;
@@ -182,30 +188,34 @@ header {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #2f262b;
-  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(212, 165, 116, 0.2);
 }
 
 .btn-primary:hover {
-  filter: brightness(0.95);
+  background: #c9965f;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(212, 165, 116, 0.3);
 }
 
 .btn-ghost {
-  background: var(--accent);
+  background: transparent;
   border-color: var(--accent);
-  color: #2f262b;
-  font-weight: 700;
-  box-shadow: 0 14px 22px rgba(193, 105, 79, 0.28);
+  color: var(--accent);
 }
 
 .btn-ghost:hover {
-  filter: brightness(0.95);
-  box-shadow: 0 16px 26px rgba(193, 105, 79, 0.33);
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .hero-note {
@@ -266,12 +276,12 @@ header {
 
 main {
   max-width: 1040px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 4rem;
   padding: 0 1.5rem 3rem;
 }
 
 section {
-  margin-top: 2.6rem;
+  margin-top: 3.5rem;
 }
 
 .scenic-gallery {
@@ -304,8 +314,8 @@ section {
 }
 
 .section-header {
-  max-width: 720px;
-  margin-bottom: 1rem;
+  max-width: 820px;
+  margin-bottom: 2rem;
 }
 
 .eyebrow {
@@ -716,18 +726,24 @@ button[type="submit"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.65rem 1.2rem;
-  border-radius: 999px;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
   border: none;
-  background: var(--primary-soft);
+  background: var(--accent);
   color: #fff;
   font-size: 0.95rem;
   cursor: pointer;
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(212, 165, 116, 0.2);
 }
 
 button[type="submit"]:hover {
-  filter: brightness(1.05);
+  background: #c9965f;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(212, 165, 116, 0.3);
 }
 
 .time-slot-list {
@@ -765,19 +781,24 @@ button[type="submit"]:hover {
 }
 
 .page-hero {
-  background: #f1e7d8;
-  padding: 2.4rem 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(109, 181, 201, 0.06) 0%, rgba(212, 165, 116, 0.08) 100%);
+  border-bottom: 1px solid rgba(31, 90, 111, 0.1);
+  padding: 3.5rem 1.5rem 3rem;
   margin-bottom: 0.5rem;
 }
 
 .page-hero h1 {
-  font-size: 2rem;
-  margin-bottom: 0.6rem;
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .page-hero p {
   max-width: 820px;
   color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .quick-links {
@@ -988,9 +1009,15 @@ button[type="submit"]:hover {
 .value-card {
   background: #fffaf4;
   border-radius: 1.1rem;
-  padding: 1rem 1.2rem;
-  border: 1px solid rgba(38, 56, 79, 0.08);
-  box-shadow: 0 10px 22px rgba(38, 56, 79, 0.08);
+  padding: 1.5rem 1.4rem;
+  border: 1px solid rgba(31, 90, 111, 0.1);
+  box-shadow: 0 4px 12px rgba(31, 90, 111, 0.06);
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(31, 90, 111, 0.1);
 }
 
 .headshot-wrap {
@@ -1049,9 +1076,15 @@ button[type="submit"]:hover {
 .process-step {
   background: #fffaf4;
   border-radius: 1rem;
-  padding: 1rem 1.1rem 1.2rem;
-  border: 1px solid rgba(38, 56, 79, 0.08);
-  box-shadow: 0 10px 20px rgba(38, 56, 79, 0.06);
+  padding: 1.4rem 1.3rem 1.5rem;
+  border: 1px solid rgba(31, 90, 111, 0.1);
+  box-shadow: 0 4px 12px rgba(31, 90, 111, 0.05);
+  transition: all 0.3s ease;
+}
+
+.process-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(31, 90, 111, 0.1);
 }
 
 .step-number {
@@ -1095,7 +1128,13 @@ button[type="submit"]:hover {
 .faq-card {
   background: #fffaf4;
   border-radius: 1rem;
-  padding: 1rem 1.1rem 1.2rem;
-  border: 1px solid rgba(38, 56, 79, 0.08);
-  box-shadow: 0 10px 20px rgba(38, 56, 79, 0.05);
+  padding: 1.4rem 1.3rem 1.5rem;
+  border: 1px solid rgba(31, 90, 111, 0.1);
+  box-shadow: 0 4px 12px rgba(31, 90, 111, 0.05);
+  transition: all 0.3s ease;
+}
+
+.faq-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(31, 90, 111, 0.1);
 }
