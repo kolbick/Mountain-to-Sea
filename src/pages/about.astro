@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Abby Underwood | Mountains to Sea Therapy">
+	<section class="relative pt-32 pb-20 bg-brand-primary text-white overflow-hidden">
+		<div class="absolute inset-0 bg-brand-dark/10"></div>
+		<div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+			<h1 class="text-5xl md:text-6xl font-display font-bold mb-6">About Abby</h1>
+			<p class="text-xl max-w-2xl mx-auto text-brand-light/90">
+				From the lakes of Minnesota to the Blue Ridge Mountains, now rooted on the Outer Banks.
+			</p>
+		</div>
+	</section>
+
+	<section class="py-24 max-w-5xl mx-auto px-4">
+		<div class="grid md:grid-cols-[1fr_1.5fr] gap-12 items-start">
+			<div class="relative md:sticky md:top-32">
+				<div class="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xl group">
+					<img src="/Abby.png" alt="Abby Underwood" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+					<div class="absolute inset-0 bg-gradient-to-t from-brand-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+						<p class="text-white font-medium">Abby Underwood, LCSW</p>
+					</div>
+				</div>
+				
+				<div class="mt-8 bg-brand-surface p-6 rounded-xl border border-gray-100">
+					<h3 class="font-bold text-brand-dark mb-4">Credentials</h3>
+					<ul class="space-y-3 text-sm text-gray-600">
+						<li class="flex gap-2"><span class="text-brand-secondary">✦</span> LCSW in North Carolina & Virginia</li>
+						<li class="flex gap-2"><span class="text-brand-secondary">✦</span> MSW, Univ. of Oklahoma</li>
+						<li class="flex gap-2"><span class="text-brand-secondary">✦</span> EMDR & EFT Trained</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="space-y-8 text-lg text-gray-600 leading-loose font-light">
+				<p>
+					I was born in Minnesota, began my work as a therapist in the Blue Ridge Mountains of Asheville, and eventually made my way across the state to the Outer Banks. This journey across landscapes influences how I hold space for others.
+				</p>
+				<p>
+					The name <strong>Mountains to Sea Therapy</strong> reflects a journey that rarely moves in a straight line. There are seasons that feel like switchbacks on a trail and seasons that feel like standing in the surf, trying to keep your balance.
+				</p>
+				<p>
+					I’ve spent over a decade walking alongside children, teens, and families through foster care, adoption, in-home services, and outpatient therapy. Whether you’re a kid feeling misunderstood, a parent feeling stuck, or an adult trying to untangle old patterns, our time together is a place where you don’t have to perform.
+				</p>
+				<p>
+					My practice is <strong>LGBTQ+ affirming, fat-positive, anti-racist, and neurodivergent-friendly</strong>. Therapy here is a shame-free zone.
+				</p>
+				
+				<div class="py-8">
+					<h3 class="font-display text-2xl font-bold text-brand-dark mb-6">Outside the Office</h3>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="bg-[#FDFBF7] p-4 rounded-lg text-center border border-dashed border-brand-primary/20">
+							<span class="block text-2xl mb-2">🌿</span>
+							<span class="text-sm font-bold text-brand-primary">Plant Tending</span>
+						</div>
+						<div class="bg-[#FDFBF7] p-4 rounded-lg text-center border border-dashed border-brand-primary/20">
+							<span class="block text-2xl mb-2">☕</span>
+							<span class="text-sm font-bold text-brand-primary">Coffee Shops</span>
+						</div>
+						<div class="bg-[#FDFBF7] p-4 rounded-lg text-center border border-dashed border-brand-primary/20">
+							<span class="block text-2xl mb-2">🌊</span>
+							<span class="text-sm font-bold text-brand-primary">Coastal Hikes</span>
+						</div>
+						<div class="bg-[#FDFBF7] p-4 rounded-lg text-center border border-dashed border-brand-primary/20">
+							<span class="block text-2xl mb-2">📖</span>
+							<span class="text-sm font-bold text-brand-primary">Memoir Reading</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
