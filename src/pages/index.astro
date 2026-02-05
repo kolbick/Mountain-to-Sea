@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mountains to Sea Therapy | Abby Underwood, LCSW">
+	<!-- Hero Section -->
+	<section class="relative min-h-[90vh] flex items-center bg-[#FDFBF7] overflow-hidden">
+		<!-- Organic Shape Background -->
+		<div class="absolute top-0 right-0 w-1/2 h-full bg-brand-primary/5 rounded-l-[10rem] -mr-20 hidden lg:block"></div>
+		
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+			<div class="grid lg:grid-cols-2 gap-16 items-center">
+				<div class="space-y-8 animate-slide-up">
+					<div class="flex flex-wrap gap-2">
+						<span class="inline-block px-4 py-1.5 rounded-full bg-brand-secondary/10 text-brand-secondary text-xs font-bold tracking-widest uppercase">
+							Telehealth (NC & VA) • In-Person Therapy
+						</span>
+						<span class="inline-block px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold tracking-widest uppercase">
+							Accepts Aetna, BCBS, & United Healthcare
+						</span>
+					</div>
+					<h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight text-brand-dark">
+						Find your <span class="text-brand-primary italic">grounding</span>.
+					</h1>
+					<p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+						Trauma-informed therapy for teens, adults, and families. We slow down, listen to your body, and move toward the version of you that feels most like home.
+					</p>
+					<div class="flex flex-wrap gap-4 pt-4">
+						<a href="/contact" class="bg-brand-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+							Schedule Free Consult
+						</a>
+						<a href="/about" class="px-8 py-4 rounded-full font-semibold text-brand-primary border-2 border-brand-primary/20 hover:border-brand-primary hover:bg-brand-primary/5 transition-all">
+							Meet Abby
+						</a>
+					</div>
+				</div>
+				
+				<div class="relative animate-fade-in lg:h-[600px] flex items-center justify-center">
+					<!-- Abstract Image Composition -->
+					<div class="relative w-full max-w-md aspect-square flex items-center justify-center p-8">
+						<div class="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-full transform rotate-3 scale-105 shadow-xl"></div>
+						<div class="relative z-10 w-64 h-64 bg-white rounded-full p-8 shadow-2xl flex items-center justify-center">
+							<img 
+								src="/mountains-to-sea-logo.svg" 
+								alt="Mountains to Sea Therapy Logo" 
+								class="w-full h-full object-contain"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Philosophy Section -->
+	<section class="py-24 bg-white">
+		<div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+			<h2 class="text-3xl md:text-4xl font-display font-bold text-brand-dark">Whole-person therapy rooted in humanity.</h2>
+			<p class="text-lg text-gray-600 leading-relaxed">
+				Clients describe sessions as steady, practical, and deeply compassionate. Whether we are working with a child’s sensory system or an adult’s nervous system, we blend clinical expertise with real-life humanity.
+			</p>
+		</div>
+		
+		<div class="max-w-7xl mx-auto px-4 mt-16 grid md:grid-cols-3 gap-8">
+			{[
+				{ title: "Compassionate Curiosity", desc: "We slow down and observe instead of rushing toward a fix. Curiosity keeps us grounded in compassion.", icon: "🌿" },
+				{ title: "Collaborative", desc: "Therapy is a partnership. Your wisdom about your own life is just as important as clinical expertise.", icon: "🤝" },
+				{ title: "Radical Acceptance", desc: "A shame-free space where every part of you—even the parts you hide—is welcomed and respected.", icon: "✨" }
+			].map(card => (
+				<div class="p-8 bg-brand-surface rounded-2xl border border-gray-100 hover:border-brand-primary/20 hover:shadow-lg transition-all group">
+					<div class="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{card.icon}</div>
+					<h3 class="text-xl font-display font-bold text-brand-dark mb-3">{card.title}</h3>
+					<p class="text-gray-600 leading-relaxed">{card.desc}</p>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- Image Break -->
+	<section class="relative h-[50vh] bg-fixed bg-center bg-cover" style="background-image: url('/Mountain.jpeg');">
+		<div class="absolute inset-0 bg-brand-dark/40 flex items-center justify-center">
+			<p class="text-white font-display text-3xl md:text-5xl font-bold tracking-wide text-center px-4 leading-tight max-w-4xl">
+				From the lakes of Minnesota to the Blue Ridge Mountains, now rooted on the Outer Banks.
+			</p>
+		</div>
+	</section>
+
+	<!-- Services Preview -->
+	<section class="py-24 bg-[#FDFBF7]">
+		<div class="max-w-7xl mx-auto px-4">
+			<div class="grid md:grid-cols-2 gap-16 items-center">
+				<div class="space-y-8">
+					<h2 class="text-4xl font-display font-bold text-brand-dark">Support across seasons.</h2>
+					<div class="space-y-6">
+						{[
+							{ title: "For Teens (13+)", desc: "Navigating identity, anxiety, and the pressure to fit in without losing yourself." },
+							{ title: "For Adults", desc: "Healing from burnout, complex trauma, or navigating faith shifts to find your footing again." },
+							{ title: "For Families", desc: "Specializing in family reunification, attachment repair, and navigating big transitions." }
+						].map(item => (
+							<div class="flex gap-4">
+								<div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center shrink-0 text-brand-primary">✓</div>
+								<div>
+									<h3 class="font-bold text-lg text-brand-dark">{item.title}</h3>
+									<p class="text-gray-600">{item.desc}</p>
+								</div>
+							</div>
+						))}
+					</div>
+					<a href="/who-i-work-with" class="inline-block text-brand-primary font-bold border-b-2 border-brand-primary hover:text-brand-secondary hover:border-brand-secondary transition-colors pb-1">
+						Explore Services &rarr;
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

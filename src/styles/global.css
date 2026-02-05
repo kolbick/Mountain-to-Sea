@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Palette - Deep, rich, and calming */
+  --color-brand-dark: #1F2937; /* Slate 900 */
+  --color-brand-primary: #335C67; /* Deep Teal */
+  --color-brand-secondary: #E09F3E; /* Golden Amber */
+  --color-brand-light: #FFF3B0; /* Pale Cream */
+  --color-brand-surface: #F9FAFB; /* Gray 50 */
+  
+  /* Typography */
+  --font-display: "Playfair Display", serif;
+  --font-body: "Lato", sans-serif;
+  
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-slide-up: slide-up 0.8s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    @apply bg-brand-surface text-brand-dark font-body antialiased leading-relaxed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-brand-dark;
+  }
+}

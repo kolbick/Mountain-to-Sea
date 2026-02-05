@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const modalities = [
+  { title: "EMDR", desc: "To process traumatic or overwhelming experiences without having to relive every detail." },
+  { title: "Somatic Therapy", desc: "Noticing how stress, memory, and safety live in the body, not just the brain." },
+  { title: "Internal Family Systems", desc: "Exploring the different “parts” of you (the perfectionist, the protector, the exile) to build internal trust." },
+  { title: "Attachment-based", desc: "Focusing on relationships, connection, and the patterns we learned early on." }
+];
+
+const steps = [
+  { num: "01", title: "Arrival", text: "We orient to the present moment, notice how your body is feeling, and name the focus." },
+  { num: "02", title: "Work", text: "Reprocessing, parts work dialogue, parenting coaching, or nervous-system exercises." },
+  { num: "03", title: "Integration", text: "We reflect, practice a regulating skill, and outline supports for the week ahead." }
+];
+---
+
+<Layout title="My Approach | Mountains to Sea Therapy">
+  <section class="relative pt-32 pb-20 bg-brand-primary text-white overflow-hidden">
+    <div class="absolute inset-0 bg-brand-dark/10"></div>
+    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+      <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">How I Work</h1>
+      <p class="text-xl max-w-2xl mx-auto text-brand-light/90">
+        A rhythm that is predictable, yet flexible.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-24 max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div class="space-y-6 text-lg text-gray-600 leading-loose">
+        <h2 class="text-3xl font-display font-bold text-brand-dark mb-4">More than just talk.</h2>
+        <p>
+          Sessions are relaxed, collaborative, and tailored to what you need that day. I blend several trauma-informed approaches so we can work with both your mind and your body at a pace that feels safe for you.
+        </p>
+        <p>
+          You might notice we check in with your body—your breath, your muscles, your posture—as much as your thoughts. We might use movement, tapping, or grounding exercises to help your nervous system feel safer while we process hard things.
+        </p>
+        <div class="bg-brand-surface p-8 rounded-2xl border border-gray-100 mt-8">
+          <p class="font-display font-bold text-xl text-brand-primary mb-2">"All of it counts."</p>
+          <p class="text-gray-600 text-base">
+             Some sessions are deep and emotional. Others are about problem-solving, parenting strategies, or just having one hour where you don’t have to hold everything together.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-6">
+        {modalities.map(mod => (
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-brand-primary/30 transition-colors">
+            <h3 class="font-display font-bold text-xl text-brand-dark mb-2 flex items-center gap-2">
+              <span class="text-brand-secondary text-sm">✦</span> {mod.title}
+            </h3>
+            <p class="text-gray-600 pl-6">{mod.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-display font-bold text-brand-dark mb-4">The Session Arc</h2>
+        <p class="text-gray-600">What does a typical hour actually look like?</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 relative">
+        <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gray-200 -z-0"></div>
+        
+        {steps.map(step => (
+          <div class="relative z-10 bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center group hover:-translate-y-2 transition-transform duration-500">
+            <div class="w-24 h-24 mx-auto bg-brand-surface rounded-full flex items-center justify-center text-3xl font-display font-bold text-brand-primary mb-6 border-4 border-white shadow-lg group-hover:scale-110 transition-transform">
+              {step.num}
+            </div>
+            <h3 class="text-xl font-bold text-brand-dark mb-4">{step.title}</h3>
+            <p class="text-gray-600 leading-relaxed">
+              {step.text}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 max-w-5xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-display font-bold text-brand-dark mb-12">Tools for the Journey</h2>
+    <div class="grid sm:grid-cols-3 gap-6">
+       {[
+         { icon: "🌬️", title: "Regulation", text: "Breathwork & Grounding" },
+         { icon: "👁️", title: "Reprocessing", text: "Integrative EMDR" },
+         { icon: "🧩", title: "Connection", text: "Parts & Attachment Work" }
+       ].map(tool => (
+         <div class="p-6 rounded-xl bg-white border border-gray-100 shadow-sm">
+           <div class="text-4xl mb-4">{tool.icon}</div>
+           <h3 class="font-bold text-brand-dark mb-1">{tool.title}</h3>
+           <p class="text-sm text-gray-500">{tool.text}</p>
+         </div>
+       ))}
+    </div>
+  </section>
+</Layout>

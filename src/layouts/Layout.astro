@@ -1,0 +1,108 @@
+---
+import '../styles/global.css';
+import '@fontsource/playfair-display';
+import '@fontsource/lato';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Mountains to Sea Therapy | Abby Teed, LCSW" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/mountains-to-sea-logo.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-brand-surface text-brand-dark overflow-x-hidden">
+		
+		<!-- Navigation: Minimal, sticky, glassmorphism -->
+		<header class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between items-center h-20">
+					<!-- Logo -->
+					<a href="/" class="flex items-center gap-3 group">
+						<img src="/mountains-to-sea-logo.svg" alt="Logo" class="w-14 h-14 object-contain group-hover:scale-105 transition-transform" />
+						<span class="font-display text-2xl font-bold tracking-tight text-brand-primary group-hover:text-brand-secondary transition-colors">
+							Mountains to Sea Therapy
+						</span>
+					</a>
+
+					<!-- Desktop Menu -->
+					<nav class="hidden md:flex items-center space-x-8">
+						{['About', 'Services', 'Approach', 'FAQ', 'Contact'].map((item) => (
+							<a 
+								href={item === 'Services' ? '/who-i-work-with' : item === 'Approach' ? '/how-i-work' : item === 'FAQ' ? '/insurance-fees' : `/${item.toLowerCase()}`}
+								class="text-sm font-medium text-gray-600 hover:text-brand-primary transition-colors tracking-wide uppercase"
+							>
+								{item}
+							</a>
+						))}
+						<a href="/contact" class="bg-brand-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-secondary transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+							Book Consult
+						</a>
+					</nav>
+
+					<!-- Mobile Menu Button -->
+					<div class="md:hidden">
+						<button class="text-gray-500 hover:text-brand-primary focus:outline-none">
+							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="pt-20">
+			<slot />
+		</main>
+
+		<!-- Footer: Clean, spacious -->
+		<footer class="bg-brand-dark text-white py-16 mt-20">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+					<div class="col-span-1 md:col-span-2">
+						<div class="flex items-center gap-3 mb-4">
+							<img src="/mountains-to-sea-logo.svg" alt="Logo" class="w-10 h-10 object-contain bg-white/10 p-1 rounded-lg" />
+							<h3 class="font-display text-2xl font-bold text-brand-light">Mountains to Sea Therapy</h3>
+						</div>
+						<p class="text-gray-400 max-w-sm leading-relaxed">
+							Trauma-informed, body-aware therapy rooted in the belief that your story—and your healing—belongs here.
+						</p>
+					</div>
+					<div>
+						<h4 class="font-bold text-brand-secondary uppercase tracking-wider text-xs mb-6">Navigation</h4>
+						<ul class="space-y-3 text-sm text-gray-300">
+							<li><a href="/about" class="hover:text-white transition-colors">About Abby</a></li>
+							<li><a href="/who-i-work-with" class="hover:text-white transition-colors">Services</a></li>
+							<li><a href="/how-i-work" class="hover:text-white transition-colors">My Approach</a></li>
+							<li><a href="/insurance-fees" class="hover:text-white transition-colors">Insurance & Fees</a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="font-bold text-brand-secondary uppercase tracking-wider text-xs mb-6">Contact</h4>
+						<ul class="space-y-3 text-sm text-gray-300">
+							<li><a href="mailto:abby@mountainstoseatherapy.com" class="hover:text-white transition-colors">abby@mountainstoseatherapy.com</a></li>
+							<li><a href="tel:12522605390" class="hover:text-white transition-colors">(252) 260-5390</a></li>
+							<li class="pt-4 text-xs text-gray-500">
+								Online across NC & VA • In-Person (Shawboro/EC)
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-gray-800 mt-16 pt-8 text-center text-xs text-gray-500">
+					&copy; {new Date().getFullYear()} Mountains to Sea Therapy. All rights reserved.
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
