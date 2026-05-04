@@ -3,32 +3,32 @@ import Layout from '../layouts/Layout.astro';
 
 const populations = [
   {
-    title: "Teens (13+) & Young Adults",
+    title: "Children & Preteens (5+)",
+    subtitle: "Safety, Play, and Expression",
+    desc: "For kids, therapy is playful, creative, and grounded in safety. We might talk, draw, move, or use sensory tools to help them express what’s going on inside.",
+    items: ["Big feelings & meltdowns", "School or peer struggles", "Grief or scary experiences", "Adoption, foster care, and family transitions"],
+    icon: "🧸"
+  },
+  {
+    title: "Teens & Young Adults",
     subtitle: "Finding Your Voice",
-    desc: "Adolescence and early adulthood are messy. We work on untangling anxiety, identity questions, and the pressure to fit in, so you can move forward with confidence.",
-    items: ["Identity & Self-Worth", "Anxiety & Perfectionism", "Trauma & Life Transitions", "LGBTQ+ Support"],
+    desc: "Many teens and young adults show up carrying anxiety, people-pleasing, or a loud inner critic. We work together to untangle where those patterns started and what you want next.",
+    items: ["Anxiety, depression, and burnout", "Identity, relationships, and family conflict", "Trauma and PTSD", "School, work, and life transitions"],
     icon: "🎧"
   },
   {
-    title: "Adults",
-    subtitle: "Reclaiming Your Story",
-    desc: "Whether you're navigating burnout, questions of faith, or relationship struggles, we create space to process the past and build a life that feels authentic to you.",
-    items: ["Complex Trauma (C-PTSD)", "Faith Transitions", "Burnout & Boundaries", "Relationship Patterns"],
-    icon: "🌿"
-  },
-  {
-    title: "Families",
+    title: "Parents, Caregivers & Families",
     subtitle: "Restoring Connection",
-    desc: "Specializing in family reunification and attachment repair. We focus on practical tools to rebuild trust and navigate the complex dynamics of foster care, adoption, or separation.",
-    items: ["Family Reunification", "Attachment Repair", "Foster Care & Adoption", "Co-parenting Dynamics"],
+    desc: "Parenting is hard; parenting kids with trauma, neurodivergence, or complex behavior can feel impossible. We focus on connection, practical tools, and care for you as a person.",
+    items: ["Adoption and post-adoption support", "Behavioral and attachment challenges", "Co-parenting and family communication", "Support for exhausted caregivers"],
     icon: "🏡"
   }
 ];
 
 const themes = [
-  { title: "Emotional Health", items: ["Anxiety & Panic", "Trauma & PTSD", "Depression", "Grief & Loss"] },
-  { title: "Identity", items: ["Gender & Sexuality", "Faith Shifts", "Neurodiversity", "Perfectionism"] },
-  { title: "Family Life", items: ["Reunification", "Adoption", "Attachment", "Parenting Support"] }
+  { title: "Emotional Health", items: ["Anxiety, panic, or chronic worry", "Trauma, PTSD, or dissociation", "Depression or numbness", "Grief and complicated family stories"] },
+  { title: "Identity & Belonging", items: ["Gender and sexuality", "Faith shifts", "Neurodiversity", "Perfectionism and boundaries"] },
+  { title: "Family Life", items: ["Kids with big behaviors", "Co-parenting", "Adoption and foster care", "Caregiver burnout"] }
 ];
 ---
 
@@ -39,7 +39,7 @@ const themes = [
     <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
       <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">Who I Work With</h1>
       <p class="text-xl max-w-2xl mx-auto text-brand-light/90">
-        Therapy tailored to teens, adults, and families navigating complex terrain.
+        Therapy is tailored to the person or family in front of me.
       </p>
     </div>
   </section>
@@ -86,7 +86,7 @@ const themes = [
           </div>
           
           <div class="mt-10 flex flex-wrap gap-3">
-             {['Trauma Informed', 'LGBTQ+ Affirming', 'Fat Positive', 'Anti-Racist', 'Neurodivergent Friendly'].map(tag => (
+             {['Child & Teen Therapy', 'Parenting Support', 'Adoption & Foster Care', 'Trauma & PTSD', 'Anxiety & Depression', 'LGBTQ+ Affirming', 'Neurodivergent Friendly'].map(tag => (
                <span class="bg-white border border-brand-primary/20 text-brand-primary px-4 py-2 rounded-full text-sm font-semibold">
                  {tag}
                </span>
@@ -116,7 +116,7 @@ const themes = [
     <div class="max-w-3xl mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">Ready to get started?</h2>
       <p class="text-brand-light/90 text-lg mb-8">
-        We’ll design therapy around your capacity. You set the goals, and we co-create the path.
+        You set the goals, and we co-create the path. With consent, I can collaborate with schools, physicians, and other members of your care team.
       </p>
       <a href="/contact" class="inline-block bg-brand-secondary text-brand-dark font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:bg-white transition-all transform hover:-translate-y-1">
         Schedule a Consult

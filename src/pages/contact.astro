@@ -2,13 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contact | Mountains to Sea Therapy">
+<Layout title="Contact | Mountains to Sea Therapy" description="Contact Mountains to Sea Therapy and request a free 15-minute consult.">
   <section class="relative pt-32 pb-20 bg-brand-primary text-white overflow-hidden">
     <div class="absolute inset-0 bg-brand-dark/10"></div>
     <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
-      <h1 class="text-4xl md:text-6xl font-display font-bold mb-6">Start the Conversation</h1>
+      <h1 class="text-4xl md:text-6xl font-display font-bold mb-6">Contact & Scheduling</h1>
       <p class="text-xl max-w-2xl mx-auto text-brand-light/90">
-        Let’s find out if we’re a good fit.
+        I’m currently accepting new clients for telehealth, in-person, and walk-and-talk sessions.
       </p>
     </div>
   </section>
@@ -27,7 +27,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="bg-red-50 border border-red-100 p-6 rounded-xl flex gap-4 mb-8">
             <span class="text-2xl">⚠️</span>
             <p class="text-sm text-red-800 leading-relaxed">
-              <strong>Please note:</strong> Email and online messaging are not appropriate for emergencies. If you are in immediate danger, call 988 or 911.
+              <strong>Please note:</strong> Email, voicemail, and online messaging are not appropriate for emergencies. If you are in immediate danger, call 911 or go to your nearest emergency room.
             </p>
           </div>
         </div>
@@ -37,7 +37,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="w-12 h-12 bg-brand-surface rounded-full flex items-center justify-center text-xl shrink-0">📞</div>
             <div>
               <h3 class="font-bold text-brand-dark mb-1">Phone</h3>
-              <a href="tel:12522605390" class="text-brand-primary hover:underline text-lg">(252) 260-5390</a>
+              <a href="tel:12525168993" class="text-brand-primary hover:underline text-lg">(252) 516-8993</a>
               <p class="text-sm text-gray-500 mt-1">Voicemail returned within 2 business days.</p>
             </div>
           </div>
@@ -54,10 +54,43 @@ import Layout from '../layouts/Layout.astro';
             <div class="w-12 h-12 bg-brand-surface rounded-full flex items-center justify-center text-xl shrink-0">📍</div>
             <div>
               <h3 class="font-bold text-brand-dark mb-1">Service Area</h3>
-              <p class="text-gray-600">Telehealth across North Carolina & Virginia</p>
-              <p class="text-gray-600">In-Person: Shawboro & Elizabeth City</p>
+              <p class="text-gray-600">Statewide telehealth across North Carolina and Virginia</p>
+              <p class="text-gray-600">Shawboro, Elizabeth City, Currituck County, and Pasquotank County</p>
             </div>
           </div>
+
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-brand-surface rounded-full flex items-center justify-center text-xl shrink-0">🔒</div>
+            <div>
+              <h3 class="font-bold text-brand-dark mb-1">Psychology Today</h3>
+              <a href="https://www.psychologytoday.com/us/therapists/mountains-to-sea-therapy-shawboro-nc/1640067" target="_blank" rel="noreferrer" class="text-brand-primary hover:underline text-lg">View profile & send a secure message</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-2xl font-display font-bold text-brand-dark mb-2">Send a Message</h3>
+          <p class="text-gray-500 mb-6">Use this for general questions or to share what is bringing you to therapy.</p>
+
+          <form id="contact-form" class="space-y-5">
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-brand-dark">Name</label>
+              <input type="text" name="from_name" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-brand-dark">Email</label>
+              <input type="email" name="from_email" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-brand-dark">Message</label>
+              <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all"></textarea>
+            </div>
+            <input type="hidden" name="form_type" value="General contact" />
+            <button type="submit" class="w-full bg-white text-brand-primary font-bold py-3 rounded-xl border-2 border-brand-primary/20 hover:border-brand-primary hover:bg-brand-primary/5 transition-all">
+              Send Message
+            </button>
+            <p id="contact-status" class="text-xs text-center text-gray-400"></p>
+          </form>
         </div>
       </div>
 
@@ -65,10 +98,10 @@ import Layout from '../layouts/Layout.astro';
       <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-secondary to-brand-primary"></div>
         
-        <h3 class="text-2xl font-display font-bold text-brand-dark mb-2">Request a Consult</h3>
-        <p class="text-gray-500 mb-8">Free 15-minute phone or video chat.</p>
+        <h3 class="text-2xl font-display font-bold text-brand-dark mb-2">Request a Free 15-Minute Consult</h3>
+        <p class="text-gray-500 mb-8">Consults are available by phone or video between 10:00 AM and 5:00 PM.</p>
 
-        <form id="contact-form" class="space-y-6">
+        <form id="schedule-form" class="space-y-6">
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-2">
               <label class="text-sm font-bold text-brand-dark">Name</label>
@@ -80,38 +113,157 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-brand-dark">Preferred Date</label>
+              <input type="date" name="preferred_date" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-bold text-brand-dark">Preferred Time</label>
+              <select name="preferred_time" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all">
+                <option value="" selected disabled>Select one</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+              </select>
+            </div>
+          </div>
+
           <div class="space-y-2">
             <label class="text-sm font-bold text-brand-dark">Preferred Contact Method</label>
             <div class="grid grid-cols-3 gap-3">
               <label class="cursor-pointer">
-                <input type="radio" name="method" value="email" class="peer sr-only" />
+                <input type="radio" name="contact_method" value="Email" class="peer sr-only" />
                 <div class="px-3 py-2 text-center rounded-lg border border-gray-200 text-sm text-gray-600 peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition-all">Email</div>
               </label>
               <label class="cursor-pointer">
-                <input type="radio" name="method" value="phone" class="peer sr-only" />
+                <input type="radio" name="contact_method" value="Phone call" class="peer sr-only" />
                 <div class="px-3 py-2 text-center rounded-lg border border-gray-200 text-sm text-gray-600 peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition-all">Phone</div>
               </label>
               <label class="cursor-pointer">
-                <input type="radio" name="method" value="video" class="peer sr-only" />
+                <input type="radio" name="contact_method" value="Video session" class="peer sr-only" />
                 <div class="px-3 py-2 text-center rounded-lg border border-gray-200 text-sm text-gray-600 peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition-all">Video</div>
               </label>
             </div>
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-bold text-brand-dark">How can I help?</label>
+            <label class="text-sm font-bold text-brand-dark">Notes</label>
             <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-brand-primary focus:ring-1 focus:ring-brand-primary outline-none transition-all"></textarea>
           </div>
 
+          <input type="hidden" name="form_type" value="Free consult request" />
+
           <button type="submit" class="w-full bg-brand-primary text-white font-bold py-4 rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-            Send Request
+            Request Consult
           </button>
           
-          <p class="text-xs text-center text-gray-400 mt-4">
-            Your information is kept strictly confidential.
+          <p id="schedule-status" class="text-xs text-center text-gray-400 mt-4">
+            Your information is sent by encrypted delivery. Once you become a client, we’ll use a HIPAA-compliant portal.
           </p>
         </form>
       </div>
     </div>
   </section>
+
+  <section class="py-20 bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold text-brand-dark mb-4">After you reach out</h2>
+        <p class="text-gray-600 max-w-3xl mx-auto">
+          I reply within two business days. During the consult we’ll talk about your hopes for therapy, scheduling needs, and whether we’re a good fit.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+          <h3 class="font-display font-bold text-xl text-brand-dark mb-3">Emergency resources</h3>
+          <ul class="text-gray-600 text-sm space-y-2">
+            <li><strong>988</strong> Suicide & Crisis Lifeline</li>
+            <li><strong>911</strong> or nearest emergency room</li>
+            <li>Mobile Crisis Hotline: <a href="tel:18662753662" class="text-brand-primary hover:underline">1-866-275-3662</a></li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+          <h3 class="font-display font-bold text-xl text-brand-dark mb-3">Secure communication</h3>
+          <p class="text-gray-600 text-sm">Forms use encrypted delivery through EmailJS. Client scheduling, forms, and telehealth links move to a secure portal.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+          <h3 class="font-display font-bold text-xl text-brand-dark mb-3">Accessibility</h3>
+          <p class="text-gray-600 text-sm">Captions are available for video sessions, and session length, lighting, or pacing can be adjusted for sensory needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    if (window.emailjs) {
+      emailjs.init('-KYPzVEnWJendcTjS');
+    }
+
+    const scheduleForm = document.getElementById('schedule-form');
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm && window.emailjs) {
+      const contactStatus = document.getElementById('contact-status');
+
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (contactStatus) {
+          contactStatus.textContent = 'Sending...';
+          contactStatus.style.color = '';
+        }
+
+        emailjs
+          .sendForm('service_yvt9tea', 'template_ecxsrfl', this)
+          .then(() => {
+            if (contactStatus) {
+              contactStatus.textContent = 'Message sent. You will receive a response by email.';
+              contactStatus.style.color = '#15803d';
+            }
+            contactForm.reset();
+          })
+          .catch(() => {
+            if (contactStatus) {
+              contactStatus.textContent = 'Something went wrong. Please try again later.';
+              contactStatus.style.color = '#b91c1c';
+            }
+          });
+      });
+    }
+
+    if (scheduleForm && window.emailjs) {
+      const scheduleStatus = document.getElementById('schedule-status');
+
+      scheduleForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (scheduleStatus) {
+          scheduleStatus.textContent = 'Sending...';
+          scheduleStatus.style.color = '';
+        }
+
+        emailjs
+          .sendForm('service_yvt9tea', 'template_nqhvpgo', this)
+          .then(() => {
+            if (scheduleStatus) {
+              scheduleStatus.textContent = 'Request sent. You will receive a confirmation by email.';
+              scheduleStatus.style.color = '#15803d';
+            }
+            scheduleForm.reset();
+          })
+          .catch(() => {
+            if (scheduleStatus) {
+              scheduleStatus.textContent = 'Something went wrong. Please try again later.';
+              scheduleStatus.style.color = '#b91c1c';
+            }
+          });
+      });
+    }
+  </script>
 </Layout>

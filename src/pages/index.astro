@@ -13,17 +13,17 @@ import Layout from '../layouts/Layout.astro';
 				<div class="space-y-8 animate-slide-up">
 					<div class="flex flex-wrap gap-2">
 						<span class="inline-block px-4 py-1.5 rounded-full bg-brand-secondary/10 text-brand-secondary text-xs font-bold tracking-widest uppercase">
-							Telehealth (NC & VA) • In-Person Therapy
+							Telehealth-first therapy for North Carolina & Virginia residents
 						</span>
 						<span class="inline-block px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-bold tracking-widest uppercase">
-							Accepts Aetna, BCBS, & United Healthcare
+							Ages 5+ • Individuals, couples, and families
 						</span>
 					</div>
 					<h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight text-brand-dark">
-						Find your <span class="text-brand-primary italic">grounding</span>.
+						From the Mountains to the Sea, <span class="text-brand-primary italic">your story belongs here</span>.
 					</h1>
 					<p class="text-xl text-gray-600 leading-relaxed max-w-lg">
-						Trauma-informed therapy for teens, adults, and families. We slow down, listen to your body, and move toward the version of you that feels most like home.
+						I support children, teens, adults, and families who are carrying the weight of trauma, anxiety, and big life changes. Together, we slow down, listen to your body and your story, and move toward the version of you that feels most like home.
 					</p>
 					<div class="flex flex-wrap gap-4 pt-4">
 						<a href="/contact" class="bg-brand-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-brand-secondary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
@@ -33,6 +33,9 @@ import Layout from '../layouts/Layout.astro';
 							Meet Abby
 						</a>
 					</div>
+					<p class="text-sm text-gray-500 max-w-xl">
+						Serving clients primarily online across North Carolina and Virginia, with limited in-person home visits available in northeast North Carolina after admission.
+					</p>
 				</div>
 				
 				<div class="relative animate-fade-in lg:h-[600px] flex items-center justify-center">
@@ -55,17 +58,17 @@ import Layout from '../layouts/Layout.astro';
 	<!-- Philosophy Section -->
 	<section class="py-24 bg-white">
 		<div class="max-w-4xl mx-auto px-4 text-center space-y-6">
-			<h2 class="text-3xl md:text-4xl font-display font-bold text-brand-dark">Whole-person therapy rooted in humanity.</h2>
+			<h2 class="text-3xl md:text-4xl font-display font-bold text-brand-dark">Grounded, collaborative therapy for kids, teens, and adults.</h2>
 			<p class="text-lg text-gray-600 leading-relaxed">
-				Clients describe sessions as steady, practical, and deeply compassionate. Whether we are working with a child’s sensory system or an adult’s nervous system, we blend clinical expertise with real-life humanity.
+				Mountains to Sea Therapy is a telehealth-first practice led by Abby Underwood, LCSW, serving clients across North Carolina and Virginia. Clients describe sessions as steady, practical, and deeply compassionate.
 			</p>
 		</div>
 		
 		<div class="max-w-7xl mx-auto px-4 mt-16 grid md:grid-cols-3 gap-8">
 			{[
-				{ title: "Compassionate Curiosity", desc: "We slow down and observe instead of rushing toward a fix. Curiosity keeps us grounded in compassion.", icon: "🌿" },
-				{ title: "Collaborative", desc: "Therapy is a partnership. Your wisdom about your own life is just as important as clinical expertise.", icon: "🤝" },
-				{ title: "Radical Acceptance", desc: "A shame-free space where every part of you—even the parts you hide—is welcomed and respected.", icon: "✨" }
+				{ title: "Body-aware & relational", desc: "Sessions honor what shows up in your muscles, breath, and posture just as much as your thoughts.", icon: "🌿" },
+				{ title: "Family-systems informed", desc: "Parenting dynamics, intergenerational stories, attachment patterns, and support networks all matter.", icon: "🤝" },
+				{ title: "Flexible & collaborative", desc: "We pivot between processing, skills practice, and gentle coaching depending on what feels most useful.", icon: "✨" }
 			].map(card => (
 				<div class="p-8 bg-brand-surface rounded-2xl border border-gray-100 hover:border-brand-primary/20 hover:shadow-lg transition-all group">
 					<div class="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{card.icon}</div>
@@ -80,7 +83,7 @@ import Layout from '../layouts/Layout.astro';
 	<section class="relative h-[50vh] bg-fixed bg-center bg-cover" style="background-image: url('/Mountain.jpeg');">
 		<div class="absolute inset-0 bg-brand-dark/40 flex items-center justify-center">
 			<p class="text-white font-display text-3xl md:text-5xl font-bold tracking-wide text-center px-4 leading-tight max-w-4xl">
-				From the lakes of Minnesota to the Blue Ridge Mountains, now rooted on the Outer Banks.
+				Whole-person therapy rooted in North Carolina soil and salt water, with telehealth access across North Carolina and Virginia.
 			</p>
 		</div>
 	</section>
@@ -93,9 +96,9 @@ import Layout from '../layouts/Layout.astro';
 					<h2 class="text-4xl font-display font-bold text-brand-dark">Support across seasons.</h2>
 					<div class="space-y-6">
 						{[
-							{ title: "For Teens (13+)", desc: "Navigating identity, anxiety, and the pressure to fit in without losing yourself." },
-							{ title: "For Adults", desc: "Healing from burnout, complex trauma, or navigating faith shifts to find your footing again." },
-							{ title: "For Families", desc: "Specializing in family reunification, attachment repair, and navigating big transitions." }
+							{ title: "For kids & teens", desc: "Big feelings, school stress, identity questions, scary experiences, and family transitions." },
+							{ title: "For adults", desc: "Anxiety, burnout, complex trauma, grief, religious harm, and relationship patterns." },
+							{ title: "For parents & caregivers", desc: "Regulation strategies, attachment support, foster care, adoption, and co-parenting stress." }
 						].map(item => (
 							<div class="flex gap-4">
 								<div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center shrink-0 text-brand-primary">✓</div>
@@ -109,6 +112,15 @@ import Layout from '../layouts/Layout.astro';
 					<a href="/who-i-work-with" class="inline-block text-brand-primary font-bold border-b-2 border-brand-primary hover:text-brand-secondary hover:border-brand-secondary transition-colors pb-1">
 						Explore Services &rarr;
 					</a>
+				</div>
+				<div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+					<h3 class="font-display text-2xl font-bold text-brand-dark mb-6">Getting Started</h3>
+					<ol class="space-y-5 text-gray-600">
+						<li><strong class="text-brand-primary">1. Reach out.</strong> Send a message or request a consult.</li>
+						<li><strong class="text-brand-primary">2. Free consult.</strong> Spend 15 minutes talking through logistics and goals.</li>
+						<li><strong class="text-brand-primary">3. First sessions.</strong> Build safety, explore your history, and map existing strengths.</li>
+						<li><strong class="text-brand-primary">4. Ongoing care.</strong> Adapt the pace, modalities, and focus as you grow.</li>
+					</ol>
 				</div>
 			</div>
 		</div>
