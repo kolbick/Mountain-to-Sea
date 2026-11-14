@@ -1147,3 +1147,14 @@ button[type="submit"]:hover {
   box-shadow: 0 20px 40px rgba(31, 90, 111, 0.15);
   border-color: rgba(31, 90, 111, 0.15);
 }
+
+/* Ranked Psychologists listing badge: its own row in the footer */
+.footer-badge {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 1.25rem 0;
+}
+.footer-badge a {
+  display: inline-block;
+  line-height: 0;
+}
