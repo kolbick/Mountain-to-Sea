@@ -1158,3 +1158,17 @@ button[type="submit"]:hover {
   display: inline-block;
   line-height: 0;
 }
+
+/* About page: center the headshot tile (single item, so one centered column on desktop) */
+@media (min-width: 768px) {
+  .about-photos {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+}
+
+.about-photo-main {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
