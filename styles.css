@@ -813,7 +813,8 @@ button[type="submit"]:hover {
   margin-bottom: 0.5rem;
 }
 
-.page-hero h1 {
+.page-hero h1,
+.page-hero h2 {
   font-size: 3rem;
   margin-bottom: 1.3rem;
   font-weight: 700;
